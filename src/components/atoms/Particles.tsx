@@ -20,7 +20,7 @@ interface Color {
 
 export default function Particles({
   className = "",
-  quantity = 200,
+  quantity = 80,
   staticity = 50,
   ease = 50,
   refresh = false,

@@ -3,23 +3,20 @@
 import Image, { StaticImageData } from "next/image";
 import Particles from "@/components/atoms/Particles";
 
-import Logo from "@/assets/images/logo.png";
-import Image1 from "@/assets/images/1.gif";
-import Image2 from "@/assets/images/2.gif";
-import Image3 from "@/assets/images/3.gif";
-import Image4 from "@/assets/images/4.gif";
-import Image6 from "@/assets/images/6.gif";
-import Image7 from "@/assets/images/7.gif";
-import Image8 from "@/assets/images/8.gif";
-import Image10 from "@/assets/images/10.gif";
-import Image11 from "@/assets/images/11.gif";
-import Image12 from "@/assets/images/12.gif";
-import Image13 from "@/assets/images/13.gif";
-import Image16 from "@/assets/images/16.gif";
-import Image17 from "@/assets/images/17.gif";
-import Image18 from "@/assets/images/18.gif";
-import Image19 from "@/assets/images/19.gif";
-import Image20 from "@/assets/images/20.gif";
+import cpp from "@/assets/images/cpp.png";
+import next from "@/assets/images/nextjs.png";
+import react from "@/assets/images/react.png";
+import typescript from "@/assets/images/typescript.png";
+import css from "@/assets/images/css.png";
+import html from "@/assets/images/html.png";
+import nodejs from "@/assets/images/nodejs.png";
+import docker from "@/assets/images/docker.png";
+import nginx from "@/assets/images/nginx.png";
+import ssms from "@/assets/images/ssms.png";
+import sql from "@/assets/images/sql.png";
+import aws from "@/assets/images/aws.png";
+import flatbuffers from "@/assets/images/flatbuffers.png";
+import protobuf from "@/assets/images/protobuf.png";
 
 // Import Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -61,21 +58,20 @@ export default function Carousel() {
                 speed={5000}
                 autoplay={{ delay: 0, disableOnInteraction: true }}
               >
-                {createSlide(Image1)}
-                {/* {createSlide(Image2)} */}
-                {/* {createSlide(Image3)} */}
-                {createSlide(Image4)}
-                {createSlide(Image6)}
-                {createSlide(Image7)}
-                {createSlide(Image8)}
-                {createSlide(Image10)}
-                {/* {createSlide(Image11)} */}
-                {/* {createSlide(Image12)} */}
-                {/* {createSlide(Image16)} */}
-                {/* {createSlide(Image17)}
-                {createSlide(Image18)} */}
-                {/* {createSlide(Image19)} */}
-                {/* {createSlide(Image20)} */}
+                {createSlide(react)}
+                {createSlide(docker)}
+                {createSlide(next)}
+                {createSlide(cpp)}
+                {createSlide(typescript)}
+                {createSlide(css)}
+                {createSlide(html)}
+                {createSlide(nodejs)}
+                {createSlide(nginx)}
+                {createSlide(ssms)}
+                {createSlide(sql)}
+                {createSlide(aws)}
+                {createSlide(flatbuffers)}
+                {createSlide(protobuf)}
               </Swiper>
             </div>
           </div>

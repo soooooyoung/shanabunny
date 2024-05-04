@@ -6,7 +6,6 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 import FancyHeader from "@/components/widgets/FancyHeader";
-import Header from "@/components/widgets/Header";
 
 export default function DefaultLayout({
   children,
@@ -24,7 +23,7 @@ export default function DefaultLayout({
 
   return (
     <>
-      <Header />
+      <FancyHeader />
 
       <main className="grow">{children}</main>
     </>

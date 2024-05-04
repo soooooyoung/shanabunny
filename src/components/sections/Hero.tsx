@@ -1,6 +1,11 @@
 import Image from "next/image";
 import Particles from "@/components/atoms/Particles";
 import Background from "@/assets/images/bg.png";
+import Room from "@/assets/images/bg1.png";
+import Chair from "@/assets/images/object1.png";
+import Desk from "@/assets/images/object2.png";
+import Profile from "@/assets/images/profile.png";
+import Carousel from "../widgets/Carousel";
 
 export default function Hero() {
   return (
@@ -10,6 +15,14 @@ export default function Hero() {
         <Particles
           className="absolute inset-0 -z-10"
           color={{ r: 255, g: 77, b: 148 }}
+        />
+        <Particles
+          className="absolute inset-0 -z-10"
+          color={{ r: 51, g: 255, b: 238 }}
+        />
+        <Particles
+          className="absolute inset-0 -z-10"
+          color={{ r: 214, g: 51, b: 255 }}
         />
 
         {/* Illustration */}
@@ -28,16 +41,30 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Wings */}
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="mb-6" data-aos="fade-down">
-            <div className="inline-flex relative before:absolute before:inset-0">
-              <Image src={Background} alt="" />
+        <div className="pt-32 pb-16 md:pt-52 md:pb-32">
+          {/* Banner */}
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="mb-6" data-aos="fade-down">
+              <div className="inline-flex relative before:absolute before:inset-0">
+                <Image src={Room} alt="" />
+
+                <div
+                  className="absolute peer-hover:animate-bounce"
+                  data-aos="fade-down"
+                  data-aos-delay="400"
+                >
+                  <Image src={Chair} alt="" />
+                </div>
+                <div
+                  className="absolute"
+                  data-aos="fade-down"
+                  data-aos-delay="800"
+                >
+                  <Image src={Desk} alt="" />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div className="pt-32 pb-16 md:pt-52 md:pb-32">
           {/* Hero content */}
           <div className="max-w-3xl mx-auto text-center">
             <div className="mb-6" data-aos="fade-down ">
@@ -62,6 +89,18 @@ export default function Hero() {
             >
               Welcome to shanabunny
             </h1>
+            <div className="mb-6" data-aos="fade-down ">
+              <div className="inline-flex relative before:absolute before:inset-0">
+                <Image
+                  data-aos="fade-down"
+                  data-aos-delay="200"
+                  src={Profile}
+                  alt=""
+                  className=""
+                  priority
+                />
+              </div>
+            </div>
             <p
               className="text-lg  text-white bg-gradient-to-r from-pink-300/60 via-purple-200 to-cyan-300/60 mb-8"
               data-aos="fade-down"
