@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import CTA from "../common/CTA";
 import Logo from "../atoms/Logo";
 import ToggleMenu from "../atoms/ToggleMenu";
@@ -75,6 +76,7 @@ const Header = () => {
             />
           </div>
         </div>
+
         <nav
           className={`${
             isToggleMenuOpen ? "block" : "hidden"
