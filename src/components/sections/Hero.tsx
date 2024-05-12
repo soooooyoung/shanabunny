@@ -1,16 +1,14 @@
 import Image from "next/image";
 import Particles from "@/components/atoms/Particles";
-import Background from "@/assets/images/bg.png";
 import Room from "@/assets/images/bg1.png";
 import Chair from "@/assets/images/object1.png";
 import Desk from "@/assets/images/object2.png";
 import Profile from "@/assets/images/profile.png";
-import Carousel from "../widgets/Carousel";
 
 export default function Hero() {
   return (
-    <section>
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
+    <section className="scrollbar-thin scrollbar-webkit">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 scrollbar-thin scrollbar-webkit">
         {/* Particles animation */}
         <Particles
           className="absolute inset-0 -z-10"
@@ -41,7 +39,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="pt-32 pb-16 md:pt-52 md:pb-32">
+        <div className="pt-32 pb-16 md:pt-52 md:pb-32 scrollbar-thin scrollbar-webkit">
           {/* Banner */}
           <div className="max-w-3xl mx-auto text-center">
             <div className="mb-6" data-aos="fade-down">
@@ -66,7 +64,7 @@ export default function Hero() {
             </div>
           </div>
           {/* Hero content */}
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-3xl mx-auto text-center scrollbar-thin scrollbar-webkit">
             <div className="mb-6" data-aos="fade-down ">
               <div className="inline-flex relative before:absolute before:inset-0 before:bg-pink-300 before:blur-md">
                 <a

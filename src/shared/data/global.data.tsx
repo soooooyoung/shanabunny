@@ -4,30 +4,17 @@ import { Bars2Icon } from "@heroicons/react/24/outline";
 
 export const headerData: HeaderProps = {
   links: [
-    // {
-    //   label: "",
-    //   icon: Bars2Icon,
-    //   links: [
-    //     {
-    //       label: "About",
-    //       href: "/about",
-    //     },
-    //     {
-    //       label: "Blog",
-    //       href: "/blog",
-    //     },
-    //   ],
-    // },
+   {
+      label: "ABOUT",
+      icon: "",
+      href: "/about",
+    },
     {
       label: "BLOG",
       icon: "",
       href: "/blog",
     },
-    {
-      label: "ABOUT",
-      icon: "",
-      href: "/about",
-    },
+
   ],
   actions: [
     {
