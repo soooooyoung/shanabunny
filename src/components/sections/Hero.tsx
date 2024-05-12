@@ -7,8 +7,8 @@ import Profile from "@/assets/images/profile.png";
 
 export default function Hero() {
   return (
-    <section className="scrollbar-thin scrollbar-webkit">
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 scrollbar-thin scrollbar-webkit">
+    <section>
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 ">
         {/* Particles animation */}
         <Particles
           className="absolute inset-0 -z-10"
@@ -24,27 +24,27 @@ export default function Hero() {
         />
 
         {/* Illustration */}
-        <div
+        {/* <div
           className="absolute inset-0 -z-10 -mx-28 rounded-b-[3rem] pointer-events-none overflow-hidden"
           aria-hidden="true"
         >
           <div className="absolute left-1/2 -translate-x-1/2 bottom-0 -z-10">
-            {/* <Image
+            <Image
               src={Background}
               alt=""
               className="max-w-none"
               width={2146}
               priority
-            /> */}
+            />
           </div>
-        </div>
+        </div> */}
 
-        <div className="pt-32 pb-16 md:pt-52 md:pb-32 scrollbar-thin scrollbar-webkit">
+        <div className="pt-24 pb-4 md:pt-32 md:pb-16">
           {/* Banner */}
           <div className="max-w-3xl mx-auto text-center">
             <div className="mb-6" data-aos="fade-down">
               <div className="inline-flex relative before:absolute before:inset-0">
-                <Image src={Room} alt="" />
+                <Image src={Room} alt="" className="max-w-xs" />
 
                 <div
                   className="absolute peer-hover:animate-bounce"
@@ -64,7 +64,7 @@ export default function Hero() {
             </div>
           </div>
           {/* Hero content */}
-          <div className="max-w-3xl mx-auto text-center scrollbar-thin scrollbar-webkit">
+          <div className="max-w-3xl mx-auto text-center ">
             <div className="mb-6" data-aos="fade-down ">
               <div className="inline-flex relative before:absolute before:inset-0 before:bg-pink-300 before:blur-md">
                 <a
@@ -94,7 +94,7 @@ export default function Hero() {
                   data-aos-delay="200"
                   src={Profile}
                   alt=""
-                  className=""
+                  className="max-w-xs"
                   priority
                 />
               </div>
