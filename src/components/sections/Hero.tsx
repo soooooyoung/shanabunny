@@ -23,22 +23,6 @@ export default function Hero() {
           color={{ r: 214, g: 51, b: 255 }}
         />
 
-        {/* Illustration */}
-        {/* <div
-          className="absolute inset-0 -z-10 -mx-28 rounded-b-[3rem] pointer-events-none overflow-hidden"
-          aria-hidden="true"
-        >
-          <div className="absolute left-1/2 -translate-x-1/2 bottom-0 -z-10">
-            <Image
-              src={Background}
-              alt=""
-              className="max-w-none"
-              width={2146}
-              priority
-            />
-          </div>
-        </div> */}
-
         <div className="pt-24 pb-4 md:pt-32 md:pb-16">
           {/* Banner */}
           <div className="max-w-3xl mx-auto text-center">

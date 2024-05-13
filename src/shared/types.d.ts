@@ -37,3 +37,8 @@ type ToggleMenuProps = {
   handleToggleMenuOnClick: MouseEventHandler<HTMLButtonElement>;
   isToggleMenuOpen: boolean;
 };
+
+type BlogPost = {
+  title: string;
+  content: string;
+};

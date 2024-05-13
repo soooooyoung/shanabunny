@@ -25,7 +25,7 @@ export default function FancyHeader() {
                   <li key={`item-link-${index}`}>
                     <Link
                       className={`font-medium text-sm ${
-                        pathname == href ? "text-pink-300" : "text-slate-900"
+                        pathname == href ? "text-white" : "text-slate-900"
                       }  hover:text-purple-300 mx-4 lg:mx-5 transition duration-150 ease-in-out`}
                       href={href as string}
                     >

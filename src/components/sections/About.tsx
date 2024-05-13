@@ -1,23 +1,21 @@
 import Image from "next/image";
 import Particles from "@/components/atoms/Particles";
 import Background from "@/assets/images/bg.png";
-import Background2 from "@/assets/images/bg2.jpg";
-import Shana from "@/assets/images/shana.png";
 
 export default function HeroAbout() {
   return (
     <section className="relative ">
       {/* Radial gradient */}
       <div
-        className="absolute flex items-center justify-center top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 pointer-events-none -z-10 w-[800px] aspect-squar bg-pink-300"
+        className="absolute flex items-center justify-center top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 pointer-events-none -z-10 w-[800px] aspect-square "
         aria-hidden="true"
       >
-        <div className="absolute inset-0 translate-z-0 bg-cyan-500 rounded-full blur-[120px] opacity-30"></div>
-        <div className="absolute w-64 h-64 translate-z-0 bg-rose-300 rounded-full blur-[80px] opacity-70"></div>
+        <div className="absolute inset-0 translate-z-0 bg-rose-200 rounded-full blur-[120px] opacity-30"></div>
+        <div className="absolute w-64 h-64 translate-z-0 bg-pink-200 rounded-full blur-[80px] opacity-70"></div>
       </div>
 
       {/* Particles animation */}
-      <Particles className="absolute inset-0 h-96 -z-10" quantity={70} />
+      <Particles className="absolute inset-0 h-96 -z-10" />
 
       {/* Illustration */}
       <div
@@ -48,7 +46,7 @@ export default function HeroAbout() {
               data-aos="fade-down"
               data-aos-delay="200"
             >
-              Turning Imagination to Reality
+              Turning Imagination into Reality
             </h1>
           </div>
         </div>

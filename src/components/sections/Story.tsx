@@ -18,7 +18,7 @@ export default function Story() {
             <div className="md:flex justify-center space-x-6 md:space-x-8 lg:space-x-14">
               <figure className="min-w-[240px]">
                 <Image
-                  className="sticky top-8 mx-auto mb-12 md:mb-0 rounded-lg "
+                  className="sticky mx-auto rounded-lg"
                   src={Shana}
                   width={460}
                   data-aos="fade-down"
@@ -31,22 +31,25 @@ export default function Story() {
                   <p>
                     We all thrive on learning something new every day and
                     everyone is constantly trying on different hats. I strive to
-                    work with new technologies while rethinking an old industry
-                    and always thrilled to work with people that share the same
-                    excitement about building{" "}
-                    <strong className="text-pink-300 font-medium">
-                      games that bring gamers together and thrive as a
+                    develop games with new technologies while preserving the
+                    nostalgia experienced as a child. I am always thrilled to
+                    work with people that share the same excitement about
+                    building{" "}
+                    <strong className="text-purple-500 font-medium">
+                      games that bring gamers together and share connection as a
                       community.
                     </strong>
                   </p>
                   <p>
-                    Shanabunny is a product that connects people around the
-                    topics and ideas of a game that fascinate them.{" "}
-                    <strong className="text-pink-300 font-medium">
-                      The idea that we can use technology to take our experience
+                    Shanabunny is a platform that connects people around the
+                    topics and ideas of a game that fascinate them. It is an
+                    idea that we can{" "}
+                    <strong className="text-pink-500 font-medium">
+                      use technology to take our experience, as gamers, to
+                      uncharted territories{" "}
                     </strong>
-                    , as gamers, to a new dimension and leave the online game
-                    industry in better shape while were at it.
+                    and leave the online game industry in better shape while
+                    were at it.
                   </p>
                 </div>
               </div>
