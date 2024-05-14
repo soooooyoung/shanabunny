@@ -1,12 +1,12 @@
+import Profile from "@/assets/images/profile.png";
+import Link from "next/link";
+import Image from "next/image";
+
 export const metadata = {
   title: "shanabunny - Sign In",
   description: "Log in to shanabunny account",
 };
 
-import Logo from "@/components/atoms/Logo";
-import Profile from "@/assets/images/profile.png";
-import Link from "next/link";
-import Image from "next/image";
 export default function SignIn() {
   return (
     <>
@@ -15,7 +15,7 @@ export default function SignIn() {
         {/* Logo */}
         <a href="/">
           <Image
-            className="justify-center m-auto max-w-xs"
+            className="justify-center m-auto max-w-32"
             src={Profile}
             alt="Profile"
           />
@@ -111,7 +111,7 @@ export default function SignIn() {
         <div className="flex space-x-3">
           <button
             disabled
-            className="btn text-white hover:text-white transition duration-150 ease-in-out w-full group [background:linear-gradient(theme(colors.pink.200),_theme(colors.cyan.300))_padding-box,_conic-gradient(theme(colors.rose.200),_theme(colors.purple.200)_25%,_theme(colors.pink.200)_75%,_theme(colors.pink.200)_100%)_border-box] relative before:absolute before:inset-0 before:bg-purple-400/30 before:rounded-full before:pointer-events-none h-9"
+            className="btn text-cyan-400 hover:text-white transition duration-150 ease-in-out w-full group  relative before:absolute before:inset-0 before:bg-cyan-400/30 before:rounded-full before:pointer-events-none h-9"
           >
             <span className="relative">
               <span className="sr-only">Continue with Twitter</span>
@@ -127,7 +127,7 @@ export default function SignIn() {
           </button>
           <button
             disabled
-            className="btn text-white hover:text-white transition duration-150 ease-in-out w-full group [background:linear-gradient(theme(colors.pink.200),_theme(colors.cyan.300))_padding-box,_conic-gradient(theme(colors.cyan.300),_theme(colors.purple.300)_25%,_theme(colors.pink.200)_75%,_theme(colors.cyan.300)_100%)_border-box] relative before:absolute before:inset-0 before:bg-pink-200/30 before:rounded-full before:pointer-events-none h-9"
+            className="btn text-pink-300 hover:text-white transition duration-150 ease-in-out w-full group relative before:absolute before:inset-0 before:bg-pink-300/30 before:rounded-full before:pointer-events-none h-9"
           >
             <span className="relative">
               <span className="sr-only">Continue with GitHub</span>
