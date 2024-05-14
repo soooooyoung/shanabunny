@@ -1,6 +1,5 @@
 // Header data
 import { HeaderProps, BlogPost } from "../types";
-import { Bars2Icon } from "@heroicons/react/24/outline";
 
 export const headerData: HeaderProps = {
   links: [
@@ -27,14 +26,3 @@ export const headerData: HeaderProps = {
   showRssFeed: false,
   position: "right",
 };
-
-export const tempPosts: BlogPost[] = [
-  { title: "test", content: "test content" },
-  { title: "test", content: "test content" },
-  { title: "test", content: "test content" },
-  { title: "test", content: "test content" },
-  { title: "test", content: "test content" },
-  { title: "test", content: "test content" },
-  { title: "test", content: "test content" },
-  { title: "test", content: "test content" },
-];

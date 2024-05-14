@@ -14,7 +14,7 @@ export default function PostItem({ ...props }) {
         <div className="grow ml-8 md:ml-0 pb-12 group-last-of-type:pb-0 border-b [border-image:linear-gradient(to_right,theme(colors.cyan.400/.3),theme(colors.purple.300),theme(colors.pink.400/.3))1] group-last-of-type:border-none">
           <header>
             <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-300/60 via-purple-500 to-pink-400/60 leading-8 pb-6">
-              {props.title}
+              {props.Title}
             </h2>
           </header>
           <figure className="bg-gradient-to-b from-rose-200/20 to-transparent rounded-3xl p-px mb-8">
@@ -26,7 +26,7 @@ export default function PostItem({ ...props }) {
               alt={props.title}
             /> */}
           </figure>
-          <p className="text-pink-300">{props.content}</p>
+          <p className="text-pink-300">{props.Content}</p>
         </div>
       </div>
     </article>

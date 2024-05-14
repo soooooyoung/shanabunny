@@ -3,16 +3,21 @@ export const metadata = {
   description: "Blog posts",
 };
 
-import { tempPosts } from "@/shared/data/global.data";
-import Image from "next/image";
 import PostItem from "@/components/widgets/PostItem";
 import Particles from "@/components/atoms/Particles";
-
-export default function Blog() {
-  // Sort posts by date
-  // tempPosts.sort((a, b) => {
-  //   return new Date(a.publishedAt) > new Date(b.publishedAt) ? -1 : 1;
-  // });
+import { PostResponse, ServerResponse } from "@/shared/models/Response";
+interface Post {
+  PostID?: number;
+  UserID?: number;
+  Title?: string;
+  Content?: string;
+  CreatedTime?: string;
+  UpdatedTime?: string;
+}
+export default async function Blog() {
+  // temporarily static
+  const res = await fetch("http://localhost:8000/post");
+  const data = (await res.json()) as PostResponse;
 
   return (
     <>
@@ -50,7 +55,7 @@ export default function Blog() {
           <div className="pt-32 pb-12 md:pt-40 md:pb-20">
             {/* Page header */}
             <div className="text-center pb-12 md:pb-20">
-              <h1 className="h1  text-white drop-shadow-md">LATEST POSTS</h1>
+              <h1 className="h1  text-white drop-shadow-md">BLOG POSTS</h1>
               <div className="max-w-3xl mx-auto">
                 <p className="text-lg text-pink-400">
                   {/* New Findings and Hobby related posts. */}
@@ -59,15 +64,17 @@ export default function Blog() {
             </div>
 
             {/* Content */}
+
             <div className="max-w-3xl mx-auto">
               <div className="relative">
                 <div
                   className="absolute h-full top-4 left-[2px] w-0.5 bg-pink-200 [mask-image:_linear-gradient(0deg,transparent,theme(colors.white)_150px,theme(colors.white))] -z-10 overflow-hidden after:absolute after:h-4 after:top-0 after:-translate-y-full after:left-0 after:w-0.5 after:bg-[linear-gradient(180deg,_transparent,_theme(colors.pink.500/.65)_25%,_theme(colors.pink.200)_50%,_theme(colors.pink.500/.65)_75%,_transparent)] after:animate-shine"
                   aria-hidden="true"
                 ></div>
-                {tempPosts.map((post, postIndex) => (
-                  <PostItem key={postIndex} {...post} />
-                ))}
+                {data.result &&
+                  data.result.map((post, postIndex) => (
+                    <PostItem key={postIndex} {...post} />
+                  ))}
               </div>
             </div>
 
