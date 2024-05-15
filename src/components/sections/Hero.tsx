@@ -25,7 +25,7 @@ export default function Hero() {
 
         <div className="pt-24 pb-4 md:pt-32 md:pb-16">
           {/* Banner */}
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-3xl mx-auto text-center hidden md:block">
             <div className="mb-6" data-aos="fade-down">
               <div className="inline-flex relative before:absolute before:inset-0">
                 <Image src={Room} alt="" className="max-w-xs" />

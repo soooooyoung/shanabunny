@@ -9,6 +9,11 @@ export const headerData: HeaderProps = {
       href: "/about",
     },
     {
+      label: "PROJECTS",
+      icon: "",
+      href: "/projects",
+    },
+    {
       label: "BLOG",
       icon: "",
       href: "/blog",

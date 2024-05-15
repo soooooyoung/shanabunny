@@ -1,12 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
-
 import AOS from "aos";
 import "aos/dist/aos.css";
-
-import FancyHeader from "@/components/widgets/FancyHeader";
+import { useEffect } from "react";
 import Footer from "@/components/widgets/Footer";
+import Header from "@/components/widgets/Header";
 
 export default function DefaultLayout({
   children,
@@ -24,7 +22,7 @@ export default function DefaultLayout({
 
   return (
     <>
-      <FancyHeader />
+      <Header />
       <main className="grow">{children}</main>
       <Footer />
     </>

@@ -3,21 +3,6 @@
 import Image, { StaticImageData } from "next/image";
 import Particles from "@/components/atoms/Particles";
 
-import cpp from "@/assets/images/cpp.png";
-import next from "@/assets/images/nextjs.png";
-import react from "@/assets/images/react.png";
-import typescript from "@/assets/images/typescript.png";
-import css from "@/assets/images/css.png";
-import html from "@/assets/images/html.png";
-import nodejs from "@/assets/images/nodejs.png";
-import docker from "@/assets/images/docker.png";
-import nginx from "@/assets/images/nginx.png";
-import ssms from "@/assets/images/ssms.png";
-import sql from "@/assets/images/sql.png";
-import aws from "@/assets/images/aws.png";
-import flatbuffers from "@/assets/images/flatbuffers.png";
-import protobuf from "@/assets/images/protobuf.png";
-
 // Import Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -25,14 +10,18 @@ import "swiper/scss";
 import "swiper/scss/scrollbar";
 import "swiper/scss/autoplay";
 
-function createSlide(source: StaticImageData) {
-  return (
-    <SwiperSlide className="swiper-slide !w-auto">
+function createSlide(images: StaticImageData[]) {
+  return images.map((source, index) => (
+    <SwiperSlide className="swiper-slide !w-auto" key={index}>
       <Image className="mt-1 " src={source} alt="" width={107} />
     </SwiperSlide>
-  );
+  ));
 }
-export default function Carousel() {
+interface Props {
+  images: StaticImageData[];
+}
+
+export default function Carousel({ images }: Props) {
   return (
     <section>
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
@@ -58,20 +47,7 @@ export default function Carousel() {
                 speed={5000}
                 autoplay={{ delay: 0, disableOnInteraction: true }}
               >
-                {createSlide(react)}
-                {createSlide(docker)}
-                {createSlide(next)}
-                {createSlide(cpp)}
-                {createSlide(typescript)}
-                {createSlide(css)}
-                {createSlide(html)}
-                {createSlide(nodejs)}
-                {createSlide(nginx)}
-                {createSlide(ssms)}
-                {createSlide(sql)}
-                {createSlide(aws)}
-                {createSlide(flatbuffers)}
-                {createSlide(protobuf)}
+                {createSlide(images)}
               </Swiper>
             </div>
           </div>

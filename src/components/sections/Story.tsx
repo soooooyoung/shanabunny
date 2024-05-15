@@ -22,7 +22,7 @@ export default function Story() {
                   src={Shana}
                   width={460}
                   data-aos="fade-down"
-                  data-aos-delay="600"
+                  data-aos-delay="400"
                   alt="Shana"
                 />
               </figure>
