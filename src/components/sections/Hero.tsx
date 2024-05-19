@@ -108,7 +108,7 @@ export default function Hero() {
               </div>
               <div>
                 <a
-                  className="btn text-white hover:text-white bg-cyan-500 bg-opacity-25 hover:bg-opacity-30 w-full transition duration-150 ease-in-out"
+                  className="btn text-white hover:text-white bg-cyan-200 bg-opacity-70 hover:bg-opacity-50 w-full transition duration-150 ease-in-out"
                   href="#0"
                 >
                   <svg

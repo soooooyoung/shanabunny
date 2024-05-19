@@ -1,5 +1,5 @@
 // Header data
-import { HeaderProps, BlogPost } from "../types";
+import { HeaderProps } from "../types";
 
 export const headerData: HeaderProps = {
   links: [

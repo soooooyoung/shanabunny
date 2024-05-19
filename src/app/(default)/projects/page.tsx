@@ -1,12 +1,13 @@
-export const metadata = {
-  title: "shanabunny - Projects",
-  description: "List of projects",
-};
 import PostItem from "@/components/widgets/PostItem";
 import Particles from "@/components/atoms/Particles";
 import { PostResponse } from "@/shared/models/Response";
 import RadialGradient from "@/components/atoms/RadialGradient";
 import PageTitle from "@/components/widgets/PageTitle";
+
+export const metadata = {
+  title: "shanabunny - Projects",
+  description: "List of projects",
+};
 
 export default async function Projects() {
   const res = await fetch(`${process.env.HOST}/post`);

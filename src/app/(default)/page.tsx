@@ -15,6 +15,7 @@ import sql from "@/assets/images/sql.png";
 import aws from "@/assets/images/aws.png";
 import flatbuffers from "@/assets/images/flatbuffers.png";
 import protobuf from "@/assets/images/protobuf.png";
+import Features from "@/components/sections/Features";
 
 export default function Home() {
   return (
@@ -38,6 +39,7 @@ export default function Home() {
           protobuf,
         ]}
       />
+      <Features />
     </>
   );
 }
