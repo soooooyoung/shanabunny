@@ -2,13 +2,11 @@ import Image from "next/image";
 import Particles from "@/components/atoms/Particles";
 import Daisy from "@/assets/images/daisy.gif";
 import Nana from "@/assets/images/nana.png";
-import PigDaisy from "@/assets/images/pigdaisy.png";
 import Pristontale from "@/assets/images/prisontale.png";
 import Kingdom from "@/assets/images/kingdom.png";
 import Aitax from "@/assets/images/aitax.png";
 import Aitax2 from "@/assets/images/aitax2.png";
 import Highlighter, { HighlighterItem } from "@/components/atoms/Highlighter";
-import PageTitle from "../widgets/PageTitle";
 import RadialGradient from "../atoms/RadialGradient";
 
 export default function Features() {
@@ -16,15 +14,18 @@ export default function Features() {
     <section className="relative">
       {/* Particles animation */}
       <div
-        className="absolute left-1/2 -translate-x-1/2 top-0 -z-10 w-80 h-80 -mt-24 -ml-32"
+        className="absolute left-1/2 -translate-x-1/2 top-0 -z-10 w-80 h-80 -ml-32"
         data-aos="fade-down"
         data-aos-delay="200"
       >
-        <RadialGradient />
+        <RadialGradient
+          OuterColor="bg-pink-200/80"
+          InnerColor="bg-rose-300/60"
+        />
         <Particles className="absolute inset-0 -z-10" staticity={30} />
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 pb-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 pb-12">
         <div className="pt-16 md:pt-32">
           {/* Section header */}
           <div
@@ -32,7 +33,7 @@ export default function Features() {
             data-aos="fade-down"
             data-aos-delay="200"
           >
-            <h2 className="h2  text-white s drop-shadow-md   pb-4">Featured</h2>
+            <h2 className="h2  text-white s drop-shadow-md pb-4">Featured</h2>
             {/* <p className="text-lg text-slate-400">From past experiences.</p> */}
           </div>
 
@@ -69,20 +70,20 @@ export default function Features() {
               </svg>
             </div>
             {/* Grid */}
-            <Highlighter className="grid md:grid-cols-12 gap-6 group">
+            <Highlighter className="grid md:grid-cols-12 gap-8 group">
               {/* Box #1 */}
               <div className="md:col-span-12" data-aos="fade-down">
                 <HighlighterItem>
-                  <div className="relative h-full bg-gradient-to-r from-pink-300/60 via-purple-200 to-cyan-300/60  rounded-[inherit] z-20 overflow-hidden">
+                  <div className="relative h-full bg-gradient-to-r from-indigo-500/10 via-purple-200/20 to-cyan-300/20  rounded-[inherit] z-20 overflow-hidden">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                       {/* Text */}
                       <div className="md:max-w-[480px] shrink-0 order-1 md:order-none p-6 md:p-8 md:pr-0">
                         <div className="mb-5">
                           <div>
-                            <h3 className="inline-flex text-xl font-bold text-white">
+                            <h3 className="inline-flex text-xl font-bold text-rose-300">
                               Don{"'"}t Starve Together Mods
                             </h3>
-                            <p className="text-white">
+                            <p className="text-rose-300">
                               Don{"'"}t Starve Together mods, including art
                               works, animations, and scripts since 2015.
                             </p>
@@ -131,7 +132,7 @@ export default function Features() {
               {/* Box #2 */}
               <div className="md:col-span-7" data-aos="fade-down">
                 <HighlighterItem>
-                  <div className="relative h-full bg-gradient-to-r from-pink-300/60 via-purple-200 to-cyan-300/30  rounded-[inherit] z-20 overflow-hidden">
+                  <div className="relative h-full bg-gradient-to-r from-pink-300/20 via-purple-200/20 to-cyan-300/20  rounded-[inherit] z-20 overflow-hidden">
                     <div className="flex flex-col">
                       {/* Radial gradient */}
                       <div
@@ -143,10 +144,10 @@ export default function Features() {
                       {/* Text */}
                       <div className="md:max-w-[480px] shrink-0 order-1 md:order-none p-6 md:p-8">
                         <div>
-                          <h3 className="inline-flex text-xl font-bold text-white pb-1">
+                          <h3 className="inline-flex text-xl font-bold text-rose-300 pb-1">
                             Game Development
                           </h3>
-                          <p className="text-white">
+                          <p className="text-rose-300">
                             Live-service content management and development
                             experiences in mobile MMORPG.
                           </p>
@@ -178,7 +179,7 @@ export default function Features() {
               {/* Box #3 */}
               <div className="md:col-span-5" data-aos="fade-down">
                 <HighlighterItem>
-                  <div className="relative h-full bg-gradient-to-r from-cyan-300/30 via-purple-200 to-pink-300/60  rounded-[inherit] z-20 overflow-hidden">
+                  <div className="relative h-full bg-gradient-to-r from-cyan-300/20 via-purple-200/20 to-pink-300/20  rounded-[inherit] z-20 overflow-hidden">
                     <div className="flex flex-col">
                       {/* Radial gradient */}
                       <div
@@ -190,10 +191,10 @@ export default function Features() {
                       {/* Text */}
                       <div className="md:max-w-[480px] shrink-0 order-1 md:order-none p-6 md:p-8">
                         <div>
-                          <h3 className="inline-flex text-xl font-bold text-white pb-1">
+                          <h3 className="inline-flex text-xl font-bold text-rose-300 pb-1">
                             Full-stack Web Development
                           </h3>
-                          <p className="text-white">
+                          <p className="text-rose-300">
                             Landing pages, web ERP solution, and API development
                             for web services.
                           </p>

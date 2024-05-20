@@ -1,8 +1,8 @@
 import PostItem from "@/components/widgets/PostItem";
 import Particles from "@/components/atoms/Particles";
-import { PostResponse } from "@/shared/models/Response";
 import RadialGradient from "@/components/atoms/RadialGradient";
 import PageTitle from "@/components/widgets/PageTitle";
+import { getPost } from "@/shared/utils/APIUtility";
 
 export const metadata = {
   title: "shanabunny - Projects",
@@ -10,9 +10,7 @@ export const metadata = {
 };
 
 export default async function Projects() {
-  const res = await fetch(`${process.env.HOST}/post`);
-  const data = (await res.json()) as PostResponse;
-
+  let data = await getPost();
   return (
     <>
       {/* Content */}
@@ -37,7 +35,8 @@ export default async function Projects() {
                   className="absolute h-full top-4 left-[2px] w-0.5 bg-pink-200 [mask-image:_linear-gradient(0deg,transparent,theme(colors.white)_150px,theme(colors.white))] -z-10 overflow-hidden after:absolute after:h-4 after:top-0 after:-translate-y-full after:left-0 after:w-0.5 after:bg-[linear-gradient(180deg,_transparent,_theme(colors.pink.500/.65)_25%,_theme(colors.pink.200)_50%,_theme(colors.pink.500/.65)_75%,_transparent)] after:animate-shine"
                   aria-hidden="true"
                 ></div>
-                {data.result &&
+                {data &&
+                  data.result &&
                   data.result.map((post, postIndex) => (
                     <PostItem key={postIndex} {...post} />
                   ))}

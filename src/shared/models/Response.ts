@@ -1,6 +1,6 @@
 import { Post } from "./Post";
 
-export interface ServerResponse {
+export interface ServerResponse extends Response {
   success: boolean;
 }
 

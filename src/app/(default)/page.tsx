@@ -16,8 +16,10 @@ import aws from "@/assets/images/aws.png";
 import flatbuffers from "@/assets/images/flatbuffers.png";
 import protobuf from "@/assets/images/protobuf.png";
 import Features from "@/components/sections/Features";
+import { preload } from "@/shared/utils/APIUtility";
 
 export default function Home() {
+  preload();
   return (
     <>
       <Hero />
