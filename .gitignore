@@ -38,6 +38,7 @@ Dockerfile
 *.tsbuildinfo
 next-env.d.ts
 
-# env
+# dev env
 .env
 out.zip
+/nginx
