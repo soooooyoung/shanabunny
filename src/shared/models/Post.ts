@@ -1,8 +1,10 @@
 export class Post {
+  PostType?: number;
   PostID?: number;
   UserID?: number;
   Title?: string;
+  TitleImage?: string;
   Content?: string;
-  CreatedDate?: string;
-  UpdatedDate?: string;
+  CreatedTime?: string;
+  UpdatedTime?: string;
 }

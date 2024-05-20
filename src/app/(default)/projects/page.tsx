@@ -37,9 +37,11 @@ export default async function Projects() {
                 ></div>
                 {data &&
                   data.result &&
-                  data.result.map((post, postIndex) => (
-                    <PostItem key={postIndex} {...post} />
-                  ))}
+                  data.result
+                    .filter((post) => post.PostType == 0)
+                    .map((post, postIndex) => (
+                      <PostItem key={postIndex} post={post} />
+                    ))}
               </div>
             </div>
 
