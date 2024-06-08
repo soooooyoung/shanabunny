@@ -1,6 +1,9 @@
 import Profile from "@/assets/images/profile.png";
 import Link from "next/link";
 import Image from "next/image";
+import { ServerResponse, User } from "@/shared/models";
+import { api } from "@/shared/utils/APIUtility";
+import { RedirectType, redirect } from "next/navigation";
 
 export const metadata = {
   title: "shanabunny - Sign In",
@@ -8,6 +11,27 @@ export const metadata = {
 };
 
 export default function SignIn() {
+  async function submitForm(formData: FormData) {
+    "use server";
+    const params: User = {
+      Username: formData.get("username") as string,
+      Password: formData.get("password") as string,
+    };
+
+    let success = false;
+    try {
+      const response = await api.post<ServerResponse, User>(
+        `${process.env.HOST}/signin`,
+        params
+      );
+      success = response.success;
+      //TODO: handle response with popup
+    } catch (e) {
+      success = false;
+      //TODO: handle error with popup
+    }
+    if (success) redirect("/", RedirectType.replace);
+  }
   return (
     <>
       {/* Page header */}
@@ -27,19 +51,20 @@ export default function SignIn() {
 
       {/* Form */}
       <div className="max-w-sm mx-auto">
-        <form>
+        <form action={submitForm}>
           <div className="space-y-4">
             <div>
               <label
                 className="block text-sm text-pink-300 font-medium mb-1"
-                htmlFor="email"
+                htmlFor="username"
               >
-                Email
+                Username
               </label>
               <input
-                id="email"
+                name="username"
+                id="username"
                 className="form-input w-full"
-                type="email"
+                type="username"
                 required
               />
             </div>
@@ -59,6 +84,7 @@ export default function SignIn() {
                 </Link>
               </div>
               <input
+                name="password"
                 id="password"
                 className="form-input w-full"
                 type="password"
@@ -69,7 +95,7 @@ export default function SignIn() {
           </div>
           <div className="mt-6">
             <button
-              disabled
+              type="submit"
               className="btn text-sm text-white bg-purple-300 hover:bg-indigo-400 w-full shadow-sm group"
             >
               Sign In{" "}

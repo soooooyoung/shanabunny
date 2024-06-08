@@ -16,10 +16,29 @@ import aws from "@/assets/images/aws.png";
 import flatbuffers from "@/assets/images/flatbuffers.png";
 import protobuf from "@/assets/images/protobuf.png";
 import Features from "@/components/sections/Features";
-import { preload } from "@/shared/utils/APIUtility";
+import { api, preload } from "@/shared/utils/APIUtility";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default function Home() {
+  const token = cookies().get("token");
   preload();
+  async function verify(token?: string) {
+    "use server";
+    if (!token) return;
+    let accessDenied = false;
+    try {
+      const response = await api.post(`${process.env.HOST}/signin`);
+      console.log(response);
+    } catch (e) {
+      accessDenied = true;
+    }
+
+    if (accessDenied) {
+      cookies().delete("token");
+      redirect("/");
+    }
+  }
   return (
     <>
       <Hero />

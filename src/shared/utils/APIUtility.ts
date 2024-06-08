@@ -24,7 +24,10 @@ export const api = {
   get: async <T>(url: string) =>
     fetch(url, { headers }).then((res) => res.json() as T),
   post: async <T, S>(url: string, params?: S) =>
-    fetch(url, { headers, method: "post", body: JSON.stringify(params) }).then(
-      (res) => res.json() as T
-    ),
+    fetch(url, {
+      headers,
+      method: "post",
+      mode: "cors",
+      body: JSON.stringify(params),
+    }).then((res) => res.json() as T),
 };
