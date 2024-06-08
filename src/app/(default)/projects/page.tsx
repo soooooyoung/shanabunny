@@ -2,7 +2,7 @@ import PostItem from "@/components/widgets/PostItem";
 import Particles from "@/components/atoms/Particles";
 import RadialGradient from "@/components/atoms/RadialGradient";
 import PageTitle from "@/components/widgets/PageTitle";
-import { getPost } from "@/shared/utils/APIUtility";
+import { getBlogPost } from "@/shared/utils/APIUtility";
 
 export const metadata = {
   title: "shanabunny - Projects",
@@ -10,7 +10,7 @@ export const metadata = {
 };
 
 export default async function Projects() {
-  let data = await getPost();
+  let data = await getBlogPost();
   return (
     <>
       {/* Content */}

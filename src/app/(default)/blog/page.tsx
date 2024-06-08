@@ -2,8 +2,7 @@ import Image from "next/image";
 import Particles from "@/components/atoms/Particles";
 import RadialGradient from "@/components/atoms/RadialGradient";
 import PageTitle from "@/components/widgets/PageTitle";
-import PigDaisy from "@/assets/images/pigdaisy.png";
-import { getPost } from "@/shared/utils/APIUtility";
+import { getBlogPost } from "@/shared/utils/APIUtility";
 import PostDate from "@/components/widgets/PostDate";
 
 export const metadata = {
@@ -12,7 +11,7 @@ export const metadata = {
 };
 
 export default async function Blog() {
-  let data = await getPost();
+  let data = await getBlogPost();
   return (
     <>
       {/* Content */}

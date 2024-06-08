@@ -1,54 +1,66 @@
 export const metadata = {
-  title: "Sign Up - Stellar",
+  title: "shanabunny - Sign Up",
   description: "Page description",
 };
 
 import Link from "next/link";
-import Logo from "@/components/atoms/Logo";
+import Image from "next/image";
+import Profile from "@/assets/images/profile.png";
+import { api } from "@/shared/utils/APIUtility";
+import { CreateUserParams, ServerResponse } from "@/shared/models";
+import { RedirectType, redirect } from "next/navigation";
 
 export default function SignUp() {
+  async function submitForm(formData: FormData) {
+    "use server";
+    const params: CreateUserParams = {
+      Username: formData.get("username") as string,
+      Password: formData.get("password") as string,
+      ReferrerCode: formData.get("referrer") as string,
+    };
+
+    try {
+      const response = await api.post<ServerResponse, CreateUserParams>(
+        `${process.env.HOST}/signup`,
+        params
+      );
+      //TODO: handle response with popup
+    } catch (e) {
+      //TODO: handle error with popup
+    }
+    redirect("/", RedirectType.replace);
+  }
   return (
     <>
       {/* Page header */}
-      <div className="max-w-3xl mx-auto text-center pb-12">
+      <div className="max-w-3xl mx-auto text-center pb-16">
         {/* Logo */}
-        <Logo />
-        {/* Page title */}
-        <h1 className="h2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60">
-          Sign Up is Temporarily Disabled
+        <a href="/">
+          <Image
+            className="justify-center m-auto max-w-32"
+            src={Profile}
+            alt="Profile"
+          />
+        </a>
+        <h1 className="h2 bg-clip-text text-transparent bg-gradient-to-r from-pink-300/60 via-purple-200 to-indigo-300/60 pb-4">
+          Sign Up
         </h1>
       </div>
 
       {/* Form */}
       <div className="max-w-sm mx-auto ">
-        <form>
+        <form action={submitForm}>
           <div className="space-y-4">
             <div>
               <label
                 className="block text-sm text-slate-300 font-medium mb-1"
-                htmlFor="company"
+                htmlFor="referrer"
               >
-                Company <span className="text-rose-500">*</span>
+                Referrer Code <span className="text-purple-500">*</span>
               </label>
               <input
-                disabled
-                id="company"
-                className="form-input w-full"
-                type="text"
-                placeholder="mE.g., Acme Inc."
-                required
-              />
-            </div>
-            <div>
-              <label
-                className="block text-sm text-slate-300 font-medium mb-1"
-                htmlFor="full-name"
-              >
-                Full Name <span className="text-rose-500">*</span>
-              </label>
-              <input
-                disabled
-                id="full-name"
+                name="referrer"
+                id="referrer"
                 className="form-input w-full"
                 type="text"
                 placeholder="E.g., Mark Rossi"
@@ -58,16 +70,16 @@ export default function SignUp() {
             <div>
               <label
                 className="block text-sm text-slate-300 font-medium mb-1"
-                htmlFor="email"
+                htmlFor="username"
               >
-                Email <span className="text-rose-500">*</span>
+                Username <span className="text-purple-500">*</span>
               </label>
               <input
-                disabled
-                id="email"
+                id="username"
+                name="username"
                 className="form-input w-full"
-                type="email"
-                placeholder="markrossi@company.com"
+                type="text"
+                placeholder="E.g., Mark Rossi"
                 required
               />
             </div>
@@ -76,46 +88,27 @@ export default function SignUp() {
                 className="block text-sm text-slate-300 font-medium mb-1"
                 htmlFor="password"
               >
-                Password <span className="text-rose-500">*</span>
+                Password <span className="text-purple-500">*</span>
               </label>
               <input
-                disabled
                 id="password"
+                name="password"
                 className="form-input w-full"
                 type="password"
                 autoComplete="on"
                 required
               />
             </div>
-            <div>
-              <label
-                className="block text-sm text-slate-300 font-medium mb-1"
-                htmlFor="referrer"
-              >
-                Where did you hear about us?{" "}
-                <span className="text-rose-500">*</span>
-              </label>
-              <select
-                disabled
-                id="referrer"
-                className="form-select text-sm py-2 w-full"
-                required
-              >
-                <option>Google</option>
-                <option>Medium</option>
-                <option>GitHub</option>
-              </select>
-            </div>
           </div>
           <div className="mt-6">
             <button
-              disabled
-              className="btn text-sm text-white bg-slate-200 hover:bg-slate-200 w-full shadow-sm group"
+              type="submit"
+              className="btn text-sm text-white bg-purple-300 hover:bg-pink-200 w-full shadow-sm group"
             >
               Sign Up{" "}
-              {/* <span className="tracking-normal text-purple-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">
+              <span className="tracking-normal group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">
                 -&gt;
-              </span> */}
+              </span>
             </button>
           </div>
         </form>
@@ -133,7 +126,7 @@ export default function SignUp() {
         </div>
 
         {/* Divider */}
-        <div className="flex items-center my-6">
+        {/* <div className="flex items-center my-6">
           <div
             className="border-t border-purple-300 grow mr-3"
             aria-hidden="true"
@@ -143,10 +136,10 @@ export default function SignUp() {
             className="border-t border-purple-300 grow ml-3"
             aria-hidden="true"
           />
-        </div>
+        </div> */}
 
         {/* Social login */}
-        <div className="flex space-x-3">
+        {/* <div className="flex space-x-3">
           <button
             disabled
             className="btn text-cyan-400 hover:text-white transition duration-150 ease-in-out w-full group  relative before:absolute before:inset-0 before:bg-cyan-400/30 before:rounded-full before:pointer-events-none h-9"
@@ -179,7 +172,7 @@ export default function SignUp() {
               </svg>
             </span>
           </button>
-        </div>
+        </div> */}
       </div>
     </>
   );

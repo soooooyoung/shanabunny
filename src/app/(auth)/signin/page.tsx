@@ -20,11 +20,9 @@ export default function SignIn() {
             alt="Profile"
           />
         </a>
-
-        {/* Page title */}
-        {/* <h1 className="h2 bg-clip-text text-transparent bg-gradient-to-r from-pink-300/60 via-purple-200 to-indigo-300/60">
-          Sign in to your account
-        </h1> */}
+        <h1 className="h2 bg-clip-text text-transparent bg-gradient-to-r from-pink-300/60 via-purple-200 to-indigo-300/60 pb-4">
+          Sign In
+        </h1>
       </div>
 
       {/* Form */}

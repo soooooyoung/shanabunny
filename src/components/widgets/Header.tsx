@@ -17,9 +17,9 @@ export default function Header() {
           </div>
 
           {/* Desktop navigation */}
-          <nav className="hidden md:flex md:grow justify-center">
+          <nav className="hidden md:flex md:grow">
             {/* Desktop menu links */}
-            <ul className="flex grow flex-wrap items-center">
+            <ul className="flex grow justify-center flex-wrap items-center">
               {links &&
                 links.map(({ label, href, icon: isContext, links }, index) => (
                   <li key={`item-link-${index}`}>
@@ -37,7 +37,7 @@ export default function Header() {
           </nav>
 
           {/* Desktop sign in links */}
-          {/* <ul className="flex-1 flex justify-end items-center">
+          <ul className="flex-1 flex justify-end items-center">
             <li>
               <Link
                 className="font-medium text-sm text-indigo-300  hover:text-pink-300 whitespace-nowrap transition duration-150 ease-in-out"
@@ -56,7 +56,7 @@ export default function Header() {
                 </span>
               </Link>
             </li>
-          </ul> */}
+          </ul>
 
           <MobileMenu />
         </div>
