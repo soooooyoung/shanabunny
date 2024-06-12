@@ -21,24 +21,8 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export default function Home() {
-  const token = cookies().get("token");
   preload();
-  async function verify(token?: string) {
-    "use server";
-    if (!token) return;
-    let accessDenied = false;
-    try {
-      const response = await api.post(`${process.env.HOST}/signin`);
-      console.log(response);
-    } catch (e) {
-      accessDenied = true;
-    }
 
-    if (accessDenied) {
-      cookies().delete("token");
-      redirect("/");
-    }
-  }
   return (
     <>
       <Hero />

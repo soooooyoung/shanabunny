@@ -5,6 +5,7 @@ import "aos/dist/aos.css";
 import { useEffect } from "react";
 import Footer from "@/components/widgets/Footer";
 import Header from "@/components/widgets/Header";
+import { getCookie, setCookie } from "cookies-next";
 
 export default function DefaultLayout({
   children,
@@ -22,7 +23,7 @@ export default function DefaultLayout({
 
   return (
     <>
-      <Header />
+      <Header auth={!!getCookie("token")} />
       <main className="grow">{children}</main>
       <Footer />
     </>

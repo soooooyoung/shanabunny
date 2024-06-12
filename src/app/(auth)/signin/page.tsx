@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ServerResponse, User } from "@/shared/models";
 import { api } from "@/shared/utils/APIUtility";
 import { RedirectType, redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export const metadata = {
   title: "shanabunny - Sign In",
@@ -25,12 +26,15 @@ export default function SignIn() {
         params
       );
       success = response.success;
+
       //TODO: handle response with popup
     } catch (e) {
       success = false;
       //TODO: handle error with popup
     }
-    if (success) redirect("/", RedirectType.replace);
+    if (success) {
+      redirect("/");
+    }
   }
   return (
     <>

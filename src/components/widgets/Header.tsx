@@ -4,7 +4,11 @@ import Logo from "../atoms/Logo";
 import MobileMenu from "./MobileMenu";
 import { headerData } from "@/shared/data/global.data";
 
-export default function Header() {
+interface Props {
+  auth?: boolean;
+}
+
+export default function Header({ auth = false }: Props) {
   const { links, actions, isSticky, position } = headerData;
   const pathname = usePathname();
   return (
@@ -19,7 +23,11 @@ export default function Header() {
           {/* Desktop navigation */}
           <nav className="hidden md:flex md:grow">
             {/* Desktop menu links */}
-            <ul className="flex grow justify-center flex-wrap items-center">
+            <ul
+              className={`flex grow flex-wrap items-center ${
+                auth ? "" : "justify-center"
+              }`}
+            >
               {links &&
                 links.map(({ label, href, icon: isContext, links }, index) => (
                   <li key={`item-link-${index}`}>
@@ -37,26 +45,28 @@ export default function Header() {
           </nav>
 
           {/* Desktop sign in links */}
-          <ul className="flex-1 flex justify-end items-center">
-            <li>
-              <Link
-                className="font-medium text-sm text-indigo-300  hover:text-pink-300 whitespace-nowrap transition duration-150 ease-in-out"
-                href="/signin"
-              >
-                Sign in
-              </Link>
-            </li>
-            <li className="ml-6">
-              <Link
-                className="btn-sm text-white transition duration-150 ease-in-out w-full group [background:linear-gradient(theme(colors.pink.300),_theme(colors.rose.300))_padding-box,_conic-gradient(theme(colors.rose.200),_theme(colors.pink.300)_25%,_theme(colors.purple.200)_75%,_theme(colors.rose.200)_100%)_border-box] relative before:absolute before:inset-0 before:bg-pink-300/30 before:rounded-full before:pointer-events-none hover:opacity-80"
-                href="/signup"
-              >
-                <span className="relative inline-flex items-center">
-                  Sign up ♥
-                </span>
-              </Link>
-            </li>
-          </ul>
+          {!auth && (
+            <ul className="flex-1 flex justify-end items-center">
+              <li>
+                <Link
+                  className="font-medium text-sm text-indigo-300  hover:text-pink-300 whitespace-nowrap transition duration-150 ease-in-out"
+                  href="/signin"
+                >
+                  Sign in
+                </Link>
+              </li>
+              <li className="ml-6">
+                <Link
+                  className="btn-sm text-white transition duration-150 ease-in-out w-full group [background:linear-gradient(theme(colors.pink.300),_theme(colors.rose.300))_padding-box,_conic-gradient(theme(colors.rose.200),_theme(colors.pink.300)_25%,_theme(colors.purple.200)_75%,_theme(colors.rose.200)_100%)_border-box] relative before:absolute before:inset-0 before:bg-pink-300/30 before:rounded-full before:pointer-events-none hover:opacity-80"
+                  href="/signup"
+                >
+                  <span className="relative inline-flex items-center">
+                    Sign up ♥
+                  </span>
+                </Link>
+              </li>
+            </ul>
+          )}
 
           <MobileMenu />
         </div>
