@@ -32,9 +32,9 @@ export const api = {
       cache: "no-cache",
       headers,
       method: "post",
-      // mode: "cors",
+      mode: "cors",
+      credentials: "same-origin",
       body: JSON.stringify(params),
-      // credentials: "same-origin",
     }).then(async (res) => {
       const cookiesArray = res.headers.getSetCookie();
 
