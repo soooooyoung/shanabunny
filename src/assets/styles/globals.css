@@ -3,6 +3,7 @@
 @tailwind utilities;
 @import "theme.css";
 @import "utility.css";
+@import "editor.css";
 
 :root {
   --foreground-rgb: 255, 204, 213;
