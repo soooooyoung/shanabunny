@@ -14,6 +14,8 @@ import {
   UNDO_COMMAND,
 } from "lexical";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { InsertInlineImageDialog } from "./InlineImagePlugin";
+import { useModal } from "@/shared/utils/useModal";
 
 const LowPriority = 1;
 
@@ -30,6 +32,7 @@ export default function ToolbarPlugin() {
   const [isItalic, setIsItalic] = useState(false);
   const [isUnderline, setIsUnderline] = useState(false);
   const [isStrikethrough, setIsStrikethrough] = useState(false);
+  const [modal, showModal] = useModal();
 
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -171,7 +174,19 @@ export default function ToolbarPlugin() {
         aria-label="Justify Align"
       >
         <i className="format justify-align" />
-      </button>{" "}
+      </button>
+      <Divider />
+      <button
+        onClick={() => {
+          showModal("Insert Inline Image", (onClose) => (
+            <InsertInlineImageDialog activeEditor={editor} onClose={onClose} />
+          ));
+        }}
+        className="toolbar-item"
+        aria-label="Justify Align"
+      >
+        <i className="format justify-align" />
+      </button>
     </div>
   );
 }

@@ -1,32 +1,32 @@
 "use client";
-import { $getRoot, $getSelection } from "lexical";
-import { useEffect } from "react";
+import { useRef, useState } from "react";
+import { EditorState } from "lexical";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
-import ToolbarPlugin from "@/components/widgets/ToolbarPlugin";
-import TreeViewPlugin from "@/components/widgets/TreeViewPlugin";
-import { theme } from "@/shared/data/editor.data";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
+
+import ToolbarPlugin from "@/components/plugins/ToolbarPlugin";
+import TreeViewPlugin from "@/components/plugins/TreeViewPlugin";
+import InlineImagePlugin from "@/components/plugins/InlineImagePlugin";
+import { theme } from "@/shared/data/editor.data";
+import Nodes from "../nodes";
+
 function Placeholder() {
   return <div className="editor-placeholder">this is placeholder...</div>;
 }
-function onChange(editorState: any) {
-  editorState.read(() => {
-    // Read the contents of the EditorState here.
-    const root = $getRoot();
-    const selection = $getSelection();
 
-    console.log(root, selection);
-  });
+interface Props {
+  onSave: (content?: string) => void;
 }
-export function Editor() {
+export function Editor({ onSave }: Props) {
+  const editorStateRef = useRef<EditorState>();
   const editorConfig = {
     namespace: "React.js Demo",
-    nodes: [],
+    nodes: [...Nodes],
     // Handling of errors during update
     onError(error: Error) {
       throw error;
@@ -34,6 +34,7 @@ export function Editor() {
     // The editor theme
     theme,
   };
+
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className="editor-container w-full max-w-3xl">
@@ -44,12 +45,26 @@ export function Editor() {
             placeholder={<Placeholder />}
             ErrorBoundary={LexicalErrorBoundary}
           />
-          <OnChangePlugin onChange={onChange} />
+          <OnChangePlugin
+            onChange={(state) => {
+              editorStateRef.current = state;
+            }}
+          />
           <HistoryPlugin />
           <AutoFocusPlugin />
+          <InlineImagePlugin />
           {/* <TreeViewPlugin /> */}
         </div>
       </div>
+      <button
+        onClick={() => {
+          if (editorStateRef.current) {
+            onSave(JSON.stringify(editorStateRef.current));
+          }
+        }}
+      >
+        Save{" "}
+      </button>
     </LexicalComposer>
   );
 }

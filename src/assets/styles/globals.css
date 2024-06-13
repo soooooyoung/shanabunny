@@ -4,6 +4,7 @@
 @import "theme.css";
 @import "utility.css";
 @import "editor.css";
+@import "ui.css";
 
 :root {
   --foreground-rgb: 255, 204, 213;

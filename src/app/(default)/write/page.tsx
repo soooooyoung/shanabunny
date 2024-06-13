@@ -1,9 +1,11 @@
+"use client";
 import Particles from "@/components/atoms/Particles";
 import RadialGradient from "@/components/atoms/RadialGradient";
 import PageTitle from "@/components/widgets/PageTitle";
 import { Editor } from "@/components/widgets/Editor";
 
 export default function Write() {
+  const onSave = (content?: string) => {};
   return (
     <>
       {/* Content */}
@@ -21,9 +23,18 @@ export default function Write() {
             {/* Page header */}
             <PageTitle title="NEW POST" />
 
-            {/* Content */}
             <div className="mx-auto max-w-3xl">
-              <Editor />
+              {/* Title */}
+              <input className="w-full px-3 py-1.5" />
+              {/* Title Image */}
+              <input
+                type="file"
+                className="input-file w-full px-3 py-1.5"
+                multiple={true}
+                accept={".png, .jpg, .gif"}
+              />
+              {/* Content */}
+              <Editor onSave={onSave} />
             </div>
           </div>
         </div>
