@@ -8,3 +8,7 @@ export interface ServerResponse extends Response {
 export interface PostResponse extends ServerResponse {
   result: Post[];
 }
+
+export interface FileResponse extends ServerResponse {
+  result: { FileID: number }[];
+}

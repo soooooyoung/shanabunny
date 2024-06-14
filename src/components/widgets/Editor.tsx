@@ -1,6 +1,11 @@
 "use client";
-import { useRef, useState } from "react";
-import { EditorState } from "lexical";
+
+import { useEffect, useRef, useState } from "react";
+import {
+  EditorState,
+  SerializedEditorState,
+  SerializedLexicalNode,
+} from "lexical";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
@@ -14,15 +19,18 @@ import TreeViewPlugin from "@/components/plugins/TreeViewPlugin";
 import InlineImagePlugin from "@/components/plugins/InlineImagePlugin";
 import { theme } from "@/shared/data/editor.data";
 import Nodes from "../nodes";
+import { RawPost } from "@/shared/models";
 
 function Placeholder() {
   return <div className="editor-placeholder">this is placeholder...</div>;
 }
 
 interface Props {
-  onSave: (content?: string) => void;
+  onSave: (content?: RawPost) => void;
 }
+
 export function Editor({ onSave }: Props) {
+  const [isMounted, setIsMounted] = useState(false);
   const editorStateRef = useRef<EditorState>();
   const editorConfig = {
     namespace: "React.js Demo",
@@ -34,6 +42,14 @@ export function Editor({ onSave }: Props) {
     // The editor theme
     theme,
   };
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <LexicalComposer initialConfig={editorConfig}>
@@ -59,7 +75,7 @@ export function Editor({ onSave }: Props) {
       <button
         onClick={() => {
           if (editorStateRef.current) {
-            onSave(JSON.stringify(editorStateRef.current));
+            onSave(editorStateRef.current.toJSON().root.children[0] as RawPost);
           }
         }}
       >

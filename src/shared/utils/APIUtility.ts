@@ -1,5 +1,7 @@
+"use server";
+
 import { cache } from "react";
-import { PostResponse } from "../models";
+import { FileResponse, PostResponse, FileData, Post } from "../models";
 import { cookies } from "next/headers";
 
 export const preload = () => {
@@ -23,11 +25,9 @@ export const headers: HeadersInit = {
 
 export const api = {
   get: async <T>(url: string) => {
-    "use server";
     return fetch(url, { headers }).then(async (res) => res.json()) as T;
   },
   post: async <T, S>(url: string, params?: S) => {
-    "use server";
     return fetch(url, {
       cache: "no-cache",
       headers,
@@ -52,4 +52,28 @@ export const api = {
       return res.json() as T;
     });
   },
+};
+
+export const postFile = async (params: FileData) => {
+  try {
+    const response = await api.post<FileResponse, FileData>(
+      `${process.env.HOST}/file`,
+      params
+    );
+    return response.result[0].FileID;
+  } catch (e) {
+    //TODO: handle error with popup
+  }
+};
+
+export const postBlog = async (params: Post) => {
+  try {
+    const response = await api.post<PostResponse, Post>(
+      `${process.env.HOST}/post`,
+      params
+    );
+    return response;
+  } catch (e) {
+    //TODO: handle error with popup
+  }
 };

@@ -1,3 +1,5 @@
+import { SerializedLexicalNode } from "lexical";
+
 export class Post {
   PostType?: number;
   PostID?: number;
@@ -7,4 +9,13 @@ export class Post {
   Content?: string;
   CreatedTime?: string;
   UpdatedTime?: string;
+}
+
+export interface RawElement {
+  type?: string;
+  text?: string;
+  src?: string;
+}
+export interface RawPost extends SerializedLexicalNode {
+  children: RawElement[];
 }

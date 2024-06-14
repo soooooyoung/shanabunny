@@ -3,9 +3,49 @@ import Particles from "@/components/atoms/Particles";
 import RadialGradient from "@/components/atoms/RadialGradient";
 import PageTitle from "@/components/widgets/PageTitle";
 import { Editor } from "@/components/widgets/Editor";
+import { useState } from "react";
+import { FileData, Post, RawPost } from "@/shared/models";
+import { postBlog, postFile } from "@/shared/utils/APIUtility";
 
 export default function Write() {
-  const onSave = (content?: string) => {};
+  const [title, setTitle] = useState("");
+  const onSave = async (content?: RawPost) => {
+    if (!content || !title) return;
+
+    if (content.children.length > 0) {
+      const contentList = content.children.map(async (element) => {
+        switch (element.type) {
+          case "text":
+            break;
+          case "inline-image":
+            {
+              if (!element.src) break;
+              const file: FileData = {
+                UserID: 0,
+                EncodedData: element.src,
+              };
+              const res = await postFile(file);
+              element.src = res ? res.toString() : "";
+            }
+            break;
+          default:
+            break;
+        }
+        return element;
+      });
+
+      const processedContent = JSON.stringify(contentList);
+      const post: Post = {
+        UserID: 0,
+        PostType: 0,
+        Title: title,
+        Content: processedContent,
+        TitleImage: "",
+      };
+
+      await postBlog(post);
+    }
+  };
   return (
     <>
       {/* Content */}
@@ -25,7 +65,13 @@ export default function Write() {
 
             <div className="mx-auto max-w-3xl">
               {/* Title */}
-              <input className="w-full px-3 py-1.5" />
+              <input
+                className="w-full px-3 py-1.5"
+                value={title}
+                onChange={(e) => {
+                  setTitle(e.target.value || "");
+                }}
+              />
               {/* Title Image */}
               {/* <input
                 type="file"
