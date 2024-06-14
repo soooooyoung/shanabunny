@@ -185,8 +185,9 @@ export default function ToolbarPlugin() {
         className="toolbar-item"
         aria-label="Justify Align"
       >
-        <i className="format justify-align" />
+        <i className="format inline-image" />
       </button>
+      {modal}
     </div>
   );
 }

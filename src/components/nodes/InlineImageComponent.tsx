@@ -108,7 +108,7 @@ function LazyImage({
 }): JSX.Element {
   useSuspenseImage(src);
   return (
-    <NextImage
+    <img
       className={className || undefined}
       src={src}
       alt={altText}

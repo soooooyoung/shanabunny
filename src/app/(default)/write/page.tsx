@@ -27,12 +27,12 @@ export default function Write() {
               {/* Title */}
               <input className="w-full px-3 py-1.5" />
               {/* Title Image */}
-              <input
+              {/* <input
                 type="file"
                 className="input-file w-full px-3 py-1.5"
                 multiple={true}
                 accept={".png, .jpg, .gif"}
-              />
+              /> */}
               {/* Content */}
               <Editor onSave={onSave} />
             </div>

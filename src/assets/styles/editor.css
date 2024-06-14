@@ -449,6 +449,10 @@ i.justify-align {
   background-image: url(../../../public/icons/justify.svg);
 }
 
+i.inline-image {
+  background-image: url(../../../public/icons/inlineimage.svg);
+}
+
 .InlineImageNode__contentEditable {
   min-height: 20px;
   border: 0px;
