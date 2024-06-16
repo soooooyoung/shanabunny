@@ -2,7 +2,7 @@ import Image from "next/image";
 import Particles from "@/components/atoms/Particles";
 import RadialGradient from "@/components/atoms/RadialGradient";
 import PageTitle from "@/components/widgets/PageTitle";
-import { getBlogPost } from "@/shared/utils/APIUtility";
+import { getBlogPost } from "@/app/actions";
 import PostDate from "@/components/widgets/PostDate";
 
 export const metadata = {

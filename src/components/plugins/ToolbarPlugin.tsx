@@ -15,7 +15,7 @@ import {
 } from "lexical";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { InsertInlineImageDialog } from "./InlineImagePlugin";
-import { useModal } from "@/shared/utils/useModal";
+import { useModal } from "@/shared/hooks/useModal";
 
 const LowPriority = 1;
 

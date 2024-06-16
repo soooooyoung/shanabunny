@@ -25,6 +25,7 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
       }
     });
   }
+
   return response;
 }
 

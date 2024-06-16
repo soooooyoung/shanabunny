@@ -5,7 +5,7 @@ import PageTitle from "@/components/widgets/PageTitle";
 import { Editor } from "@/components/widgets/Editor";
 import { useState } from "react";
 import { FileData, Post, RawPost } from "@/shared/models";
-import { postBlog, postFile } from "@/shared/utils/APIUtility";
+import { postBlog, postFile } from "@/app/actions";
 
 export default function Write() {
   const [title, setTitle] = useState("");
@@ -13,30 +13,34 @@ export default function Write() {
     if (!content || !title) return;
 
     if (content.children.length > 0) {
-      const contentList = content.children.map(async (element) => {
-        switch (element.type) {
-          case "text":
-            break;
-          case "inline-image":
-            {
-              if (!element.src) break;
-              const file: FileData = {
-                UserID: 0,
-                EncodedData: element.src,
-              };
-              const res = await postFile(file);
-              element.src = res ? res.toString() : "";
-            }
-            break;
-          default:
-            break;
-        }
-        return element;
-      });
+      const contentList = await Promise.all(
+        content.children.map(async (element) => {
+          switch (element.type) {
+            case "text":
+              break;
+            case "inline-image":
+              {
+                if (!element.src) break;
+
+                const file: FileData = {
+                  UserID: 1,
+                  EncodedData: element.src,
+                };
+
+                const res = await postFile(file);
+                element.src = res ? res.toString() : "";
+              }
+              break;
+            default:
+              break;
+          }
+          return element;
+        })
+      );
 
       const processedContent = JSON.stringify(contentList);
       const post: Post = {
-        UserID: 0,
+        UserID: 1,
         PostType: 0,
         Title: title,
         Content: processedContent,

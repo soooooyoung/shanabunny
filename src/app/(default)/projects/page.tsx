@@ -2,7 +2,7 @@ import PostItem from "@/components/widgets/PostItem";
 import Particles from "@/components/atoms/Particles";
 import RadialGradient from "@/components/atoms/RadialGradient";
 import PageTitle from "@/components/widgets/PageTitle";
-import { getBlogPost } from "@/shared/utils/APIUtility";
+import { getBlog } from "@/app/actions";
 
 export const metadata = {
   title: "shanabunny - Projects",
@@ -10,12 +10,12 @@ export const metadata = {
 };
 
 export default async function Projects() {
-  let data = await getBlogPost();
+  let data = await getBlog();
   return (
     <>
       {/* Content */}
+      {/* Radial gradient */}
       <section className="relative">
-        {/* Radial gradient */}
         <RadialGradient />
 
         {/* Particles animation */}

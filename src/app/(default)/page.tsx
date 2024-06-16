@@ -16,9 +16,7 @@ import aws from "@/assets/images/aws.png";
 import flatbuffers from "@/assets/images/flatbuffers.png";
 import protobuf from "@/assets/images/protobuf.png";
 import Features from "@/components/sections/Features";
-import { api, preload } from "@/shared/utils/APIUtility";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { preload } from "@/app/actions";
 
 export default function Home() {
   preload();

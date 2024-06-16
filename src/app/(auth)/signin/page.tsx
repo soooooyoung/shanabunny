@@ -1,10 +1,9 @@
 import Profile from "@/assets/images/profile.png";
 import Link from "next/link";
 import Image from "next/image";
-import { ServerResponse, User } from "@/shared/models";
-import { api } from "@/shared/utils/APIUtility";
-import { RedirectType, redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
+import { User } from "@/shared/models";
+import { postSignin } from "@/app/actions";
+import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "shanabunny - Sign In",
@@ -18,21 +17,8 @@ export default function SignIn() {
       Username: formData.get("username") as string,
       Password: formData.get("password") as string,
     };
-
-    let success = false;
-    try {
-      const response = await api.post<ServerResponse, User>(
-        `${process.env.HOST}/signin`,
-        params
-      );
-      success = response.success;
-
-      //TODO: handle response with popup
-    } catch (e) {
-      success = false;
-      //TODO: handle error with popup
-    }
-    if (success) {
+    const result = await postSignin(params);
+    if (result) {
       redirect("/");
     }
   }

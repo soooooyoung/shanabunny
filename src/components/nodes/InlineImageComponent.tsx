@@ -47,7 +47,7 @@ import {
   useState,
 } from "react";
 
-import { useModal } from "@/shared/utils/useModal";
+import { useModal } from "@/shared/hooks/useModal";
 import LinkPlugin from "../plugins/LinkPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { $isInlineImageNode, InlineImageNode } from "./InlineImageNode";
