@@ -3,10 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import {
   EditorState,
+  LexicalEditor,
   SerializedEditorState,
   SerializedLexicalNode,
 } from "lexical";
-import { LexicalComposer } from "@lexical/react/LexicalComposer";
+import {
+  InitialConfigType,
+  LexicalComposer,
+} from "@lexical/react/LexicalComposer";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
@@ -20,25 +24,29 @@ import InlineImagePlugin from "@/components/plugins/InlineImagePlugin";
 import { theme } from "@/shared/data/editor.data";
 import Nodes from "../nodes";
 import { RawPost } from "@/shared/models";
+import { $generateHtmlFromNodes } from "@lexical/html";
 
 function Placeholder() {
   return <div className="editor-placeholder">this is placeholder...</div>;
 }
 
 interface Props {
-  onSave: (content?: RawPost) => void;
+  onSave: (content?: string) => void;
 }
 
 export function Editor({ onSave }: Props) {
   const [isMounted, setIsMounted] = useState(false);
+  const [content, setContent] = useState("");
+  const editorRef = useRef<LexicalEditor>();
   const editorStateRef = useRef<EditorState>();
-  const editorConfig = {
+  const editorConfig: InitialConfigType = {
     namespace: "React.js Demo",
     nodes: [...Nodes],
     // Handling of errors during update
     onError(error: Error) {
       throw error;
     },
+
     // The editor theme
     theme,
   };
@@ -62,8 +70,13 @@ export function Editor({ onSave }: Props) {
             ErrorBoundary={LexicalErrorBoundary}
           />
           <OnChangePlugin
-            onChange={(state) => {
+            onChange={(state, editor) => {
               editorStateRef.current = state;
+              state.read(() => {
+                const htmlString = $generateHtmlFromNodes(editor, null);
+
+                setContent(htmlString);
+              });
             }}
           />
           <HistoryPlugin />
@@ -74,8 +87,9 @@ export function Editor({ onSave }: Props) {
       </div>
       <button
         onClick={() => {
-          if (editorStateRef.current) {
-            onSave(editorStateRef.current.toJSON().root.children[0] as RawPost);
+          if (content) {
+            onSave(content);
+            // onSave(editorStateRef.current.toJSON().root.children[0] as RawPost);
           }
         }}
       >

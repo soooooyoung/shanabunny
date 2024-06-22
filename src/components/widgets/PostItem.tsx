@@ -1,11 +1,25 @@
+"use client";
+
 import { Post } from "@/shared/models/Post";
 import Image from "next/image";
 import PostDate from "./PostDate";
+import { useEffect, useState } from "react";
+import dompurify from "dompurify";
 
 interface Props {
   post: Post;
 }
 export default function PostItem({ post }: Props) {
+  const [isMounted, setIsMounted] = useState(false);
+  const sanitizer = dompurify.sanitize;
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <article className="pt-12 first-of-type:pt-0 group">
       <div className="md:flex">
@@ -33,7 +47,10 @@ export default function PostItem({ post }: Props) {
               />
             </figure>
           )}
-          <p className="text-pink-300">{post.Content}</p>
+
+          <div
+            dangerouslySetInnerHTML={{ __html: sanitizer(post.Content ?? "") }}
+          />
         </div>
       </div>
     </article>

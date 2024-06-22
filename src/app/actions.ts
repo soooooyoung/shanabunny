@@ -10,6 +10,7 @@ import {
   ServerResponse,
   User,
 } from "@/shared/models";
+import { base64ToArrayBuffer } from "@/shared/utils/common";
 
 async function compressBase64Data(data: string): Promise<ArrayBuffer> {
   const zip = new JSZip();
@@ -17,11 +18,25 @@ async function compressBase64Data(data: string): Promise<ArrayBuffer> {
   const zipBlob = await zip.generateAsync({ type: "arraybuffer" });
   return zipBlob;
 }
+
+const extractBase64Data = async (blob: Blob): Promise<string> => {
+  const zip = new JSZip();
+  const zipContent = await zip.loadAsync(blob);
+  const dataFile = zipContent.file("data.txt");
+  if (dataFile) {
+    return await dataFile.async("string");
+  } else {
+    throw new Error("data.txt not found in the zip");
+  }
+};
+
 const headers: HeadersInit = {
   apikey: process.env.APIKEY || "",
   Accept: "application/json",
   "Content-Type": "application/json",
-  Cookie: `token=${cookies().get("token")?.value}`,
+  Cookie: cookies().get("token")?.value
+    ? `token=${cookies().get("token")?.value}`
+    : "",
 };
 
 const api = {
@@ -35,6 +50,7 @@ const api = {
       headers,
       method: "post",
       mode: "cors",
+      cache: "no-cache",
       credentials: "same-origin",
       body: JSON.stringify(params),
       ...options,
@@ -55,18 +71,19 @@ const api = {
       return res.json() as T;
     });
   },
-  postFile: async <T>(
+  postFormData: async <T>(
     url: string,
-    params?: FormData,
+    params: FormData,
     options?: RequestInit
   ) => {
     return fetch(`${process.env.HOST}/${url}`, {
       headers: {
-        "Content-Type": "multipart/form-data",
-        Accept: "application/json",
         apikey: process.env.APIKEY || "",
-        Cookie: `token=${cookies().get("token")?.value || ""}`,
+        Cookie: cookies().get("token")?.value
+          ? `token=${cookies().get("token")?.value}`
+          : "",
       },
+      cache: "no-cache",
       method: "post",
       mode: "cors",
       credentials: "same-origin",
@@ -86,9 +103,12 @@ export const preload = async () => {
 export const getBlog = async () => {
   try {
     const response = await api.get<PostResponse>("post", {
-      next: { revalidate: 3600 },
+      cache: "no-cache",
+      // next: { revalidate: 3600 },
     });
-    return response;
+    const posts = response.result.map((post) => {});
+
+    return response.result;
   } catch (e) {
     //TODO: handle error with popup
   }
@@ -110,7 +130,6 @@ export const postBlog = async (params: Post) => {
 export const postSignin = async (params: User) => {
   try {
     const response = await api.post<ServerResponse, User>("signin", params);
-    console.log(response);
     return response.success;
 
     //TODO: handle response with popup
@@ -122,20 +141,34 @@ export const postSignin = async (params: User) => {
 /**
  * File
  */
-export const postFile = async (params: FileData) => {
-  if (!params.EncodedData) return;
+
+// export const getFile = async (FileID: string) => {
+//   try {
+//     const response = await api.get<Response>(`file/${FileID}`, {
+//       next: { revalidate: 3600 },
+//     });
+//     const blob = await response.blob();
+//     const base64data = await extractBase64Data(blob);
+
+//     if (!response.ok) {
+//       throw new Error("Network Error");
+//     }
+
+//     return base64data;
+//   } catch (e) {
+//     //TODO: handle error with popup
+//   }
+// };
+
+export const postFile = async (base64str: string) => {
   try {
-    const data = await compressBase64Data(params.EncodedData);
     const formData = new FormData();
-    formData.append("file", new Blob([data]), "data.zip");
-
-    const response = await api.post<FileResponse, FormData>(
-      `${process.env.HOST}/file`,
-      formData
-    );
-
-    return response.result[0].FileID;
+    const arrayBuffer = base64ToArrayBuffer(base64str);
+    formData.append("file", new Blob([arrayBuffer]));
+    const response = await api.postFormData<FileResponse>("file", formData);
+    return response.success ? response.result.FileID : 0;
   } catch (e) {
+    throw e;
     //TODO: handle error with popup
   }
 };

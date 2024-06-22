@@ -2,7 +2,7 @@ import Image from "next/image";
 import Particles from "@/components/atoms/Particles";
 import RadialGradient from "@/components/atoms/RadialGradient";
 import PageTitle from "@/components/widgets/PageTitle";
-import { getBlogPost } from "@/app/actions";
+import { getBlog } from "@/app/actions";
 import PostDate from "@/components/widgets/PostDate";
 
 export const metadata = {
@@ -11,7 +11,7 @@ export const metadata = {
 };
 
 export default async function Blog() {
-  let data = await getBlogPost();
+  let data = await getBlog();
   return (
     <>
       {/* Content */}

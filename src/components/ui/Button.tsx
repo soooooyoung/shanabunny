@@ -8,7 +8,7 @@
 import * as React from "react";
 import { ReactNode } from "react";
 
-import { joinClasses } from "../../shared/utils/StyleUtils";
+import { joinClasses } from "../../shared/utils/common";
 
 export default function Button({
   "data-test-id": dataTestId,

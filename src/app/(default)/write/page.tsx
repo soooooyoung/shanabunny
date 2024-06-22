@@ -4,52 +4,53 @@ import RadialGradient from "@/components/atoms/RadialGradient";
 import PageTitle from "@/components/widgets/PageTitle";
 import { Editor } from "@/components/widgets/Editor";
 import { useState } from "react";
-import { FileData, Post, RawPost } from "@/shared/models";
+import { Post } from "@/shared/models";
 import { postBlog, postFile } from "@/app/actions";
 
 export default function Write() {
   const [title, setTitle] = useState("");
-  const onSave = async (content?: RawPost) => {
-    if (!content || !title) return;
+  const [published, setPublished] = useState(false);
+  const onSave = async (content?: string) => {
+    try {
+      if (!content || !title) return;
 
-    if (content.children.length > 0) {
-      const contentList = await Promise.all(
-        content.children.map(async (element) => {
-          switch (element.type) {
-            case "text":
-              break;
-            case "inline-image":
-              {
-                if (!element.src) break;
+      let doc = new DOMParser().parseFromString(content, "text/html");
+      const images = doc.querySelectorAll("img");
+      const base64Images: { index: number; src: string }[] = [];
 
-                const file: FileData = {
-                  UserID: 1,
-                  EncodedData: element.src,
-                };
+      images.forEach((img, index) => {
+        const src = img.src;
+        if (src.startsWith("data:image")) {
+          base64Images.push({ index, src });
+        }
+      });
 
-                const res = await postFile(file);
-                element.src = res ? res.toString() : "";
-              }
-              break;
-            default:
-              break;
-          }
-          return element;
+      await Promise.all(
+        base64Images.map(async ({ index, src }) => {
+          const id = await postFile(src);
+
+          images[index].src = id ? `/api/file?id=${id}` : "";
+          if (!id) throw new Error("Failed to save Image");
         })
       );
 
-      const processedContent = JSON.stringify(contentList);
       const post: Post = {
         UserID: 1,
         PostType: 0,
         Title: title,
-        Content: processedContent,
         TitleImage: "",
+
+        Content: doc.documentElement.outerHTML,
+
+        Published: published,
       };
 
       await postBlog(post);
+    } catch (e) {
+      console.log(e);
     }
   };
+
   return (
     <>
       {/* Content */}

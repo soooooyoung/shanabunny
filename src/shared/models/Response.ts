@@ -10,5 +10,5 @@ export interface PostResponse extends ServerResponse {
 }
 
 export interface FileResponse extends ServerResponse {
-  result: { FileID: number }[];
+  result: { FileID: number };
 }

@@ -87,6 +87,14 @@ export function InsertInlineImageDialog({
       return "";
     };
     if (files !== null) {
+      const maxSizeInBytes = 2 * 1024 * 1024;
+      const file = files[0];
+      if (file.size > maxSizeInBytes) {
+        alert(
+          `File ${file.name} is too large. Please select a file smaller than 2MB.`
+        );
+        return "";
+      } // 2MB
       reader.readAsDataURL(files[0]);
     }
   };

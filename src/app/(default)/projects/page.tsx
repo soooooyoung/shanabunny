@@ -11,6 +11,7 @@ export const metadata = {
 
 export default async function Projects() {
   let data = await getBlog();
+
   return (
     <>
       {/* Content */}
@@ -36,8 +37,7 @@ export default async function Projects() {
                   aria-hidden="true"
                 ></div>
                 {data &&
-                  data.result &&
-                  data.result
+                  data
                     .filter((post) => post.PostType == 0)
                     .map((post, postIndex) => (
                       <PostItem key={postIndex} post={post} />
