@@ -180,8 +180,8 @@ select {
 }
 
 :root {
-  --select-border: #393939;
-  --select-focus: #101484;
+  --select-border: #ffc5d9;
+  --select-focus: #ff6289;
   --select-arrow: var(--select-border);
 }
 

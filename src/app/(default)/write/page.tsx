@@ -6,6 +6,9 @@ import PageTitle from "@/components/widgets/PageTitle";
 import { useState } from "react";
 import { Post } from "@/shared/models";
 import { postBlog, postFile } from "@/app/actions";
+import { DatePicker } from "@/components/ui/DatePicker";
+import { format } from "date-fns";
+import { useRouter } from "next/navigation";
 
 // https://nextjs.org/docs/app/building-your-application/optimizing/lazy-loading
 const DynamicEditor = dynamic(() => import("@/components/widgets/Editor"), {
@@ -14,7 +17,10 @@ const DynamicEditor = dynamic(() => import("@/components/widgets/Editor"), {
 
 export default function Write() {
   const [title, setTitle] = useState("");
+  const [date, setDate] = useState<Date>();
   const [published, setPublished] = useState(false);
+  const router = useRouter();
+
   const onSave = async (content?: string) => {
     try {
       if (!content || !title) return;
@@ -46,9 +52,16 @@ export default function Write() {
         Content: doc.documentElement.outerHTML,
 
         Published: published,
+        PostTime: date?.toDateString(),
       };
 
-      await postBlog(post);
+      const response = await postBlog(post);
+
+      if (response?.success) {
+        router.push("/projects");
+      } else {
+        alert(response?.error);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -73,7 +86,15 @@ export default function Write() {
 
             <div className="mx-auto max-w-3xl">
               {/* Options */}
-              <div className="flex ">
+              <div className="flex">
+                <div className="inline-flex items-center mb-3">
+                  <input
+                    disabled
+                    className="rounded-md px-3 h-8 rounded-e-none text-purple-300 focus-visible:!outline-0 disabled:bg-white"
+                    value={date && format(date, "yyyy-MM-dd HH:mm:ss")}
+                  />
+                  <DatePicker onChange={setDate} />
+                </div>
                 <label className="inline-flex items-center mb-3">
                   <input
                     type="checkbox"
@@ -95,7 +116,7 @@ export default function Write() {
               </div>
               {/* Title */}
               <input
-                className="w-full px-3 py-1.5 focus-visible:!outline-offset-2 focus-visible:!outline-2 focus-visible:!outline-pink-200 focus-visible:animate-pulse"
+                className="w-full px-3 py-1.5 focus-visible:!outline-2 focus-visible:!outline-pink-200 focus-visible:animate-pulse"
                 value={title}
                 onChange={(e) => {
                   setTitle(e.target.value || "");

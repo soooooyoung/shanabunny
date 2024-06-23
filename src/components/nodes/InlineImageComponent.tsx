@@ -382,7 +382,7 @@ export default function InlineImageComponent({
       <>
         <div draggable={draggable}>
           <button
-            className="image-edit-button"
+            className="image-edit-button bg-pink-200 text-white"
             ref={buttonRef}
             onClick={() => {
               showModal("Update Inline Image", (onClose) => (

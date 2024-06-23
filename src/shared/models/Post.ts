@@ -10,6 +10,7 @@ export class Post {
 
   Published?: boolean;
 
+  PostTime?: string;
   CreatedTime?: string;
   UpdatedTime?: string;
 }

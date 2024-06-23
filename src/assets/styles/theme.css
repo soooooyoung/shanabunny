@@ -4,7 +4,8 @@
 .form-select:focus,
 .form-checkbox:focus,
 .form-radio:focus {
-  @apply ring-0;
+  outline-offset: 2;
+  outline-color: pink;
 }
 
 /* Hamburger button */
