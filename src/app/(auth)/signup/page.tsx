@@ -6,7 +6,7 @@ export const metadata = {
 import Link from "next/link";
 import Image from "next/image";
 import Profile from "@/assets/images/profile.png";
-import { api } from "@/app/actions";
+import { post } from "@/app/actions";
 import { CreateUserParams, ServerResponse } from "@/shared/models";
 import { RedirectType, redirect } from "next/navigation";
 
@@ -20,7 +20,7 @@ export default function SignUp() {
     };
 
     try {
-      const response = await api.post<ServerResponse, CreateUserParams>(
+      const response = await post<ServerResponse, CreateUserParams>(
         `${process.env.HOST}/signup`,
         params
       );

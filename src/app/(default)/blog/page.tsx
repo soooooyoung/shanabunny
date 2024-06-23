@@ -29,8 +29,7 @@ export default async function Blog() {
             {/* Page header */}
             <PageTitle title="BLOG POSTS" />
             {data &&
-              data.result &&
-              data.result
+              data
                 .filter((post) => post.PostType == 1)
                 .map((post, postIndex) => (
                   <div

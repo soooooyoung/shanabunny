@@ -1,5 +1,5 @@
 "use client";
-
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import {
   EditorState,
@@ -19,11 +19,9 @@ import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 
 import ToolbarPlugin from "@/components/plugins/ToolbarPlugin";
-import TreeViewPlugin from "@/components/plugins/TreeViewPlugin";
 import InlineImagePlugin from "@/components/plugins/InlineImagePlugin";
 import { theme } from "@/shared/data/editor.data";
 import Nodes from "../nodes";
-import { RawPost } from "@/shared/models";
 import { $generateHtmlFromNodes } from "@lexical/html";
 
 function Placeholder() {
@@ -34,10 +32,9 @@ interface Props {
   onSave: (content?: string) => void;
 }
 
-export function Editor({ onSave }: Props) {
+export default function Editor({ onSave }: Props) {
   const [isMounted, setIsMounted] = useState(false);
   const [content, setContent] = useState("");
-  const editorRef = useRef<LexicalEditor>();
   const editorStateRef = useRef<EditorState>();
   const editorConfig: InitialConfigType = {
     namespace: "React.js Demo",
@@ -63,7 +60,7 @@ export function Editor({ onSave }: Props) {
     <LexicalComposer initialConfig={editorConfig}>
       <div className="editor-container w-full max-w-3xl">
         <ToolbarPlugin />
-        <div className="editor-inner">
+        <div className="editor-inner min-h-96">
           <RichTextPlugin
             contentEditable={<ContentEditable className="editor-input" />}
             placeholder={<Placeholder />}
@@ -86,6 +83,7 @@ export function Editor({ onSave }: Props) {
         </div>
       </div>
       <button
+        className="btn text-sm text-white bg-pink-200 hover:bg-purple-200 w-full shadow-sm group"
         onClick={() => {
           if (content) {
             onSave(content);
@@ -93,7 +91,7 @@ export function Editor({ onSave }: Props) {
           }
         }}
       >
-        Save{" "}
+        Save
       </button>
     </LexicalComposer>
   );
