@@ -4,7 +4,7 @@ import Image, { StaticImageData } from "next/image";
 import Particles from "@/components/atoms/Particles";
 
 // Import Swiper
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperProps, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/scss";
 import "swiper/scss/scrollbar";
@@ -18,13 +18,46 @@ function createSlide(images: StaticImageData[]) {
   ));
 }
 interface Props {
-  images: StaticImageData[];
+  images?: StaticImageData[];
+  children?: React.ReactNode;
+  swiperProps?: SwiperProps;
+  className?: string;
 }
 
-export default function Carousel({ images }: Props) {
+export default function Carousel({
+  images,
+  children,
+  swiperProps,
+  className,
+}: Props) {
+  const defaultProps: SwiperProps = {
+    className: "!ease-linear select-none items-center",
+    modules: [Autoplay],
+    slidesPerView: "auto",
+    spaceBetween: 64,
+    centeredSlides: true,
+    loop: true,
+    speed: 1500,
+    noSwiping: true,
+    noSwipingClass: "swiper-slide",
+    autoplay: {
+      delay: 0,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: false,
+      stopOnLastSlide: false,
+      waitForTransition: true,
+    },
+  };
+
+  let props = swiperProps ?? defaultProps;
+
   return (
     <section>
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 bg-white">
+      <div
+        className={
+          className ?? "relative max-w-6xl mx-auto px-4 sm:px-6 bg-white"
+        }
+      >
         {/* Particles animation */}
         <div className="absolute inset-0 max-w-6xl mx-auto px-4 sm:px-6">
           <Particles
@@ -37,25 +70,8 @@ export default function Carousel({ images }: Props) {
         <div className="py-12 md:py-16">
           <div className="overflow-hidden">
             <div className="clients-carousel relative before:absolute before:inset-0 before:w-32 before:z-10 before:pointer-events-none before:bg-gradient-to-r after:absolute after:inset-0 after:left-auto after:w-32 after:z-10 after:pointer-events-none after:bg-gradient-to-l">
-              <Swiper
-                className="!ease-linear select-none items-center"
-                modules={[Autoplay]}
-                slidesPerView={"auto"}
-                spaceBetween={64}
-                centeredSlides={true}
-                loop={true}
-                speed={1500}
-                noSwiping={true}
-                noSwipingClass="swiper-slide"
-                autoplay={{
-                  delay: 0,
-                  disableOnInteraction: false,
-                  pauseOnMouseEnter: false,
-                  stopOnLastSlide: false,
-                  waitForTransition: true,
-                }}
-              >
-                {createSlide(images)}
+              <Swiper {...props}>
+                {images ? createSlide(images) : children}
               </Swiper>
             </div>
           </div>

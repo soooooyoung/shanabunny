@@ -5,6 +5,8 @@ import PageTitle from "@/components/widgets/PageTitle";
 import { getBlog } from "@/app/actions";
 import PostDate from "@/components/widgets/PostDate";
 import { ContentReader } from "@/components/widgets/ContentReader";
+import { PostList } from "@/components/widgets/PostList";
+import { PostViewer } from "@/components/widgets/PostViewer";
 
 export const metadata = {
   title: "shanabunny - Blog",
@@ -29,29 +31,10 @@ export default async function Blog() {
           <div className="pt-32 pb-12 md:pt-40 md:pb-20">
             {/* Page header */}
             <PageTitle title="BLOG POSTS" />
-            {data &&
-              data
-                .filter((post) => post.PostType == 1)
-                .map((post, postIndex) => (
-                  <div
-                    key={postIndex}
-                    className="max-w-3xl mx-auto text-center pb-12 "
-                  >
-                    {post.CreatedTime && (
-                      <PostDate dateString={post.CreatedTime} />
-                    )}
-                    <h2 className="h2 bg-clip-text text-transparent bg-gradient-to-r from-pink-300/60 via-indigo-300 to-cyan-200/80 pb-6">
-                      {post.Title}
-                    </h2>
-                    {post.TitleImage && (
-                      <Image className="m-auto " src={post.TitleImage} alt="" />
-                    )}
-                    <ContentReader
-                      className="text-slate-700"
-                      content={post.Content}
-                    />
-                  </div>
-                ))}
+            <div className="pb-6 md:pb-12">
+              <PostList postList={data} />
+            </div>
+            <PostViewer postList={data} />
           </div>
         </div>
       </section>
