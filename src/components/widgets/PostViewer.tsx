@@ -11,7 +11,7 @@ interface Props {
   postList?: Post[];
 }
 
-export const PostViewer = ({ postList }: Props) => {
+export default function PostViewer({ postList }: Props) {
   const [isMounted, setIsMounted] = useState(false);
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
@@ -48,4 +48,4 @@ export const PostViewer = ({ postList }: Props) => {
       )}
     </>
   );
-};
+}

@@ -1,17 +1,24 @@
-import Image from "next/image";
+import dynamic from "next/dynamic";
 import Particles from "@/components/atoms/Particles";
 import RadialGradient from "@/components/atoms/RadialGradient";
 import PageTitle from "@/components/widgets/PageTitle";
 import { getBlog } from "@/app/actions";
-import PostDate from "@/components/widgets/PostDate";
-import { ContentReader } from "@/components/widgets/ContentReader";
-import { PostList } from "@/components/widgets/PostList";
-import { PostViewer } from "@/components/widgets/PostViewer";
 
 export const metadata = {
   title: "shanabunny - Blog",
   description: "Blog posts",
 };
+
+const DynamicPostList = dynamic(() => import("@/components/widgets/PostList"), {
+  ssr: false,
+});
+
+const DynamicPostViewer = dynamic(
+  () => import("@/components/widgets/PostViewer"),
+  {
+    ssr: false,
+  }
+);
 
 export default async function Blog() {
   let data = await getBlog();
@@ -32,9 +39,9 @@ export default async function Blog() {
             {/* Page header */}
             <PageTitle title="BLOG POSTS" />
             <div className="pb-6 md:pb-12">
-              <PostList postList={data} />
+              <DynamicPostList postList={data} />
             </div>
-            <PostViewer postList={data} />
+            <DynamicPostViewer postList={data} />
           </div>
         </div>
       </section>

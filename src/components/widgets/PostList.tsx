@@ -6,11 +6,13 @@ import Image from "next/image";
 import DefaultImage from "@/assets/images/bg.png";
 import { Post } from "@/shared/models";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 
 interface Props {
   postList?: Post[];
 }
-export const PostList = ({ postList }: Props) => {
+
+export default function PostList({ postList }: Props) {
   return (
     <Carousel
       className="relative bg-transparent"
@@ -38,4 +40,4 @@ export const PostList = ({ postList }: Props) => {
         ))}
     </Carousel>
   );
-};
+}
