@@ -3,6 +3,7 @@ import Particles from "@/components/atoms/Particles";
 import RadialGradient from "@/components/atoms/RadialGradient";
 import PageTitle from "@/components/widgets/PageTitle";
 import { getBlog } from "@/app/actions";
+import { cookies } from "next/headers";
 
 export const metadata = {
   title: "shanabunny - Projects",
@@ -10,6 +11,8 @@ export const metadata = {
 };
 
 export default async function Projects() {
+  const cookieStore = cookies();
+  const auth = !!cookieStore.get("token");
   let data = await getBlog();
 
   return (
@@ -40,7 +43,7 @@ export default async function Projects() {
                   data
                     .filter((post) => post.PostType == 0)
                     .map((post, postIndex) => (
-                      <PostItem key={postIndex} post={post} />
+                      <PostItem key={postIndex} post={post} auth={auth} />
                     ))}
               </div>
             </div>

@@ -9,6 +9,7 @@ import {
   User,
 } from "@/shared/models";
 import { base64ToArrayBuffer } from "@/shared/utils/common";
+import { revalidatePath } from "next/cache";
 
 const headers: HeadersInit = {
   apikey: process.env.APIKEY || "",
@@ -64,6 +65,24 @@ export const post = async <T, S>(
   });
 };
 
+export const del = async <T>(url: string, options?: RequestInit) => {
+  return fetch(`${process.env.HOST}/${url}`, {
+    headers: {
+      ...headers,
+      Cookie: cookies().get("token")?.value
+        ? `token=${cookies().get("token")?.value}`
+        : "",
+    },
+    method: "delete",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    ...options,
+  }).then((res) => {
+    return res.json() as T;
+  });
+};
+
 export const postFormData = async <T>(
   url: string,
   params: FormData,
@@ -98,7 +117,6 @@ export const getBlog = async () => {
       cache: "no-cache",
       // next: { revalidate: 3600 },
     });
-    const posts = response.result.map((post) => {});
 
     return response.result;
   } catch (e) {
@@ -109,6 +127,17 @@ export const getBlog = async () => {
 export const postBlog = async (params: Post) => {
   try {
     const response = await post<PostResponse, Post>("post", params);
+    return response;
+  } catch (e) {
+    console.log(e);
+    //TODO: handle error with popup
+  }
+};
+
+export const deleteBlog = async (postID: number) => {
+  try {
+    const response = await del<PostResponse>(`post/${postID}`);
+    if (response.success) revalidatePath("/[slug]", "page");
     return response;
   } catch (e) {
     console.log(e);

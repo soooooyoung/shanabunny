@@ -2,6 +2,8 @@
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import {
+  $createNodeSelection,
+  $getNodeByKey,
   EditorState,
   LexicalEditor,
   SerializedEditorState,
@@ -23,6 +25,7 @@ import InlineImagePlugin from "@/components/plugins/InlineImagePlugin";
 import { theme } from "@/shared/data/editor.data";
 import Nodes from "../nodes";
 import { $generateHtmlFromNodes } from "@lexical/html";
+import { $getNodeFromDOM } from "lexical/LexicalUtils";
 
 function Placeholder() {
   return <div className="editor-placeholder">this is placeholder...</div>;
