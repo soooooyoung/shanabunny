@@ -4,6 +4,7 @@ import RadialGradient from "@/components/atoms/RadialGradient";
 import PageTitle from "@/components/widgets/PageTitle";
 import { getBlog } from "@/app/actions";
 import PostDate from "@/components/widgets/PostDate";
+import { ContentReader } from "@/components/widgets/ContentReader";
 
 export const metadata = {
   title: "shanabunny - Blog",
@@ -45,7 +46,10 @@ export default async function Blog() {
                     {post.TitleImage && (
                       <Image className="m-auto " src={post.TitleImage} alt="" />
                     )}
-                    <p className="text-lg text-slate-400">{post.Content}</p>
+                    <ContentReader
+                      className="text-slate-700"
+                      content={post.Content}
+                    />
                   </div>
                 ))}
           </div>

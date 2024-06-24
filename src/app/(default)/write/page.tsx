@@ -46,7 +46,7 @@ export default function Write() {
         })
       );
 
-      const body = doc.getElementsByClassName("editor-paragraph");
+      const body = doc.getElementsByTagName("body");
       const Content = Array.from(body)[0].outerHTML;
 
       const post: Post = {

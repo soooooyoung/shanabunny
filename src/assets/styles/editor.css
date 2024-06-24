@@ -453,6 +453,18 @@ i.inline-image {
   background-image: url(../../../public/icons/inlineimage.svg);
 }
 
+i.list-bullet {
+  background-image: url(../../../public/icons/list-bullet.svg);
+}
+
+i.check {
+  background-image: url(../../../public/icons/check.svg);
+}
+
+i.variable {
+  background-image: url(../../../public/icons/variable.svg);
+}
+
 .InlineImageNode__contentEditable {
   min-height: 20px;
   border: 0px;

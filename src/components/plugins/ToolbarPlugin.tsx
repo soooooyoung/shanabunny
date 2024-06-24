@@ -16,12 +16,25 @@ import {
 import { useCallback, useEffect, useRef, useState } from "react";
 import { InsertInlineImageDialog } from "./InlineImagePlugin";
 import { useModal } from "@/shared/hooks/useModal";
+import {
+  INSERT_CHECK_LIST_COMMAND,
+  INSERT_ORDERED_LIST_COMMAND,
+  INSERT_UNORDERED_LIST_COMMAND,
+  REMOVE_LIST_COMMAND,
+} from "@lexical/list";
 
 const LowPriority = 1;
 
 function Divider() {
   return <div className="divider" />;
 }
+
+const blockTypeToBlockName = {
+  bullet: "Bulleted List",
+  number: "Numbered List",
+  check: "Check List",
+  paragraph: "Normal",
+};
 
 export default function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext();
@@ -33,6 +46,8 @@ export default function ToolbarPlugin() {
   const [isUnderline, setIsUnderline] = useState(false);
   const [isStrikethrough, setIsStrikethrough] = useState(false);
   const [modal, showModal] = useModal();
+  const [blockType, setBlockType] =
+    useState<keyof typeof blockTypeToBlockName>("paragraph");
 
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -45,6 +60,22 @@ export default function ToolbarPlugin() {
     }
   }, []);
 
+  const formatList = (listType: string) => {
+    console.log(blockType);
+    if (listType === "number" && blockType !== "number") {
+      editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
+      setBlockType("number");
+    } else if (listType === "bullet" && blockType !== "bullet") {
+      editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
+      setBlockType("bullet");
+    } else if (listType === "check" && blockType !== "check") {
+      editor.dispatchCommand(INSERT_CHECK_LIST_COMMAND, undefined);
+      setBlockType("check");
+    } else {
+      editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
+      setBlockType("paragraph");
+    }
+  };
   useEffect(() => {
     return mergeRegister(
       editor.registerUpdateListener(({ editorState }) => {
@@ -176,6 +207,29 @@ export default function ToolbarPlugin() {
         <i className="format justify-align" />
       </button>
       <Divider />
+      <button
+        disabled={false}
+        className={"toolbar-item spaced"}
+        onClick={() => formatList("bullet")}
+      >
+        <i className="format list-bullet" />
+      </button>
+      <button
+        disabled={false}
+        className={"toolbar-item spaced"}
+        onClick={() => formatList("number")}
+      >
+        <i className="format check" />
+      </button>
+      <button
+        disabled={false}
+        className={"toolbar-item spaced"}
+        onClick={() => formatList("check")}
+      >
+        <i className="format variable" />
+      </button>
+      <Divider />
+
       <button
         onClick={() => {
           showModal("Insert Inline Image", (onClose) => (

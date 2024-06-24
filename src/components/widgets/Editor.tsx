@@ -16,6 +16,7 @@ import {
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
+import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
@@ -82,6 +83,7 @@ export default function Editor({ onSave }: Props) {
           <HistoryPlugin />
           <AutoFocusPlugin />
           <InlineImagePlugin />
+          <ListPlugin />
           {/* <TreeViewPlugin /> */}
         </div>
       </div>
@@ -90,7 +92,6 @@ export default function Editor({ onSave }: Props) {
         onClick={() => {
           if (content) {
             onSave(content);
-            // onSave(editorStateRef.current.toJSON().root.children[0] as RawPost);
           }
         }}
       >
