@@ -104,47 +104,6 @@ export const postFormData = async <T>(
   }).then((res) => res.json() as T);
 };
 
-export const preload = async () => {
-  await getBlog();
-};
-
-/**
- * Blog
- */
-export const getBlog = async () => {
-  try {
-    const response = await get<PostResponse>("post", {
-      cache: "no-cache",
-      // next: { revalidate: 3600 },
-    });
-
-    return response.result;
-  } catch (e) {
-    //TODO: handle error with popup
-  }
-};
-
-export const postBlog = async (params: Post) => {
-  try {
-    const response = await post<PostResponse, Post>("post", params);
-    return response;
-  } catch (e) {
-    console.log(e);
-    //TODO: handle error with popup
-  }
-};
-
-export const deleteBlog = async (postID: number) => {
-  try {
-    const response = await del<PostResponse>(`post/${postID}`);
-    if (response.success) revalidatePath("/[slug]", "page");
-    return response;
-  } catch (e) {
-    console.log(e);
-    //TODO: handle error with popup
-  }
-};
-
 /**
  * Auth
  */

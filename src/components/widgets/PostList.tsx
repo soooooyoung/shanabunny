@@ -1,43 +1,54 @@
 "use client";
-
-import Carousel from "@/components/widgets/Carousel";
-import { SwiperSlide } from "swiper/react";
-import Image from "next/image";
-import DefaultImage from "@/assets/images/bg.png";
+import { useInView } from "react-intersection-observer";
+import { getProjects } from "@/app/actions/blog";
 import { Post } from "@/shared/models";
-import Link from "next/link";
-import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
+import PostItem from "./PostItem";
 
 interface Props {
+  auth?: boolean;
   postList?: Post[];
 }
 
-export default function PostList({ postList }: Props) {
+const LIMIT = 0;
+
+export default function PostList({ auth, postList }: Props) {
+  const [postEnd, setPostEnd] = useState(false);
+  const [offset, setOffset] = useState(LIMIT + 1);
+  const [posts, setPosts] = useState<Post[]>(postList || []);
+  const { ref, inView } = useInView();
+
+  const loadPosts = async () => {
+    if (postEnd) return;
+    try {
+      const response = await getProjects(offset, LIMIT);
+      if (response && response.length > 0) {
+        setPosts([...posts, ...response]);
+        setOffset(offset + LIMIT + 1);
+
+        if (response.length == LIMIT) setPostEnd(true);
+      }
+    } catch (e) {
+      alert(e);
+    }
+  };
+
+  useEffect(() => {
+    if (inView) {
+      loadPosts();
+    }
+  }, [inView, postEnd]);
+
   return (
-    <Carousel
-      className="relative bg-transparent"
-      swiperProps={{
-        className: "items-center",
-        noSwiping: false,
-        slidesPerView: "auto",
-        spaceBetween: 32,
-      }}
-    >
-      {postList &&
-        postList.map((post, postIndex) => (
-          <SwiperSlide className="!w-auto" key={postIndex}>
-            <div className="max-w-52 text-center">
-              <Link href={`blog?id=${post.PostID}`} key={post.PostID}>
-                <Image
-                  className="justify-center max-w-52 grayscale opacity-50 hover:grayscale-0 hover:opacity-100"
-                  src={DefaultImage}
-                  alt=""
-                />
-                <span>{post.Title}</span>
-              </Link>
-            </div>
-          </SwiperSlide>
-        ))}
-    </Carousel>
+    <div className="">
+      <div className="relative">
+        {posts
+          .filter((post) => post.PostType == 0)
+          .map((post, postIndex) => (
+            <PostItem key={postIndex} post={post} auth={auth} />
+          ))}
+      </div>
+      <div ref={ref}>Loading...</div>
+    </div>
   );
 }

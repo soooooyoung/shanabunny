@@ -6,15 +6,34 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ContentReader } from "./ContentReader";
 import PostDate from "./PostDate";
+import { deleteBlog } from "@/app/actions/blog";
 
 interface Props {
   postList?: Post[];
+  auth?: boolean;
 }
 
-export default function PostViewer({ postList }: Props) {
+export default function PostViewer({ postList, auth }: Props) {
   const [isMounted, setIsMounted] = useState(false);
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
+
+  const onDelete = async (postId?: number) => {
+    if (!auth || !postId) return;
+    try {
+      const response = await deleteBlog(postId);
+    } catch (e) {
+      alert(e);
+    }
+  };
+
+  const onEdit = (postId?: number) => {
+    if (!auth || !postId) return;
+    try {
+    } catch (e) {
+      alert(e);
+    }
+  };
 
   useEffect(() => {
     setIsMounted(true);
@@ -26,10 +45,30 @@ export default function PostViewer({ postList }: Props) {
 
   let post =
     postList?.find((post) => post.PostID && post.PostID == Number(id ?? 1)) ??
-    postList[0];
+    postList[postList.length - 1];
 
   return (
     <>
+      {auth && (
+        <div>
+          <button
+            className="bg-pink-200 text-white p-2 rounded-xl float-right mx-2 hover:bg-purple-200"
+            onClick={() => {
+              if (post.PostID) onEdit(post.PostID);
+            }}
+          >
+            <i className="format pencil-square" />
+          </button>
+          <button
+            className="bg-pink-200 hover:bg-purple-200 text-white p-2 rounded-xl float-right"
+            onClick={() => {
+              if (post.PostID) onDelete(post.PostID);
+            }}
+          >
+            <i className="format trash" />
+          </button>
+        </div>
+      )}
       {post && (
         <div className="max-w-3xl mx-auto text-center pb-12 ">
           {post.PostTime ? (

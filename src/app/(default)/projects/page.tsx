@@ -1,19 +1,21 @@
-import PostItem from "@/components/widgets/PostItem";
+import dynamic from "next/dynamic";
 import Particles from "@/components/atoms/Particles";
 import RadialGradient from "@/components/atoms/RadialGradient";
 import PageTitle from "@/components/widgets/PageTitle";
-import { getBlog } from "@/app/actions";
+import { getProjects } from "@/app/actions/blog";
 import { cookies } from "next/headers";
 
 export const metadata = {
   title: "shanabunny - Projects",
   description: "List of projects",
 };
-
+const DynamicPostList = dynamic(() => import("@/components/widgets/PostList"), {
+  ssr: false,
+});
 export default async function Projects() {
   const cookieStore = cookies();
   const auth = !!cookieStore.get("token");
-  let data = await getBlog();
+  let data = await getProjects(0, 0);
 
   return (
     <>
@@ -34,18 +36,7 @@ export default async function Projects() {
 
             {/* Content */}
             <div className="max-w-3xl mx-auto">
-              <div className="relative">
-                <div
-                  className="absolute h-full top-4 left-[2px] w-0.5 bg-pink-200 [mask-image:_linear-gradient(0deg,transparent,theme(colors.white)_150px,theme(colors.white))] -z-10 overflow-hidden after:absolute after:h-4 after:top-0 after:-translate-y-full after:left-0 after:w-0.5 after:bg-[linear-gradient(180deg,_transparent,_theme(colors.pink.500/.65)_25%,_theme(colors.pink.200)_50%,_theme(colors.pink.500/.65)_75%,_transparent)] after:animate-shine"
-                  aria-hidden="true"
-                ></div>
-                {data &&
-                  data
-                    .filter((post) => post.PostType == 0)
-                    .map((post, postIndex) => (
-                      <PostItem key={postIndex} post={post} auth={auth} />
-                    ))}
-              </div>
+              <DynamicPostList postList={data} auth={auth} />
             </div>
 
             {/* Pagination */}

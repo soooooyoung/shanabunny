@@ -196,3 +196,19 @@ select {
   line-height: 1.4;
   background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
 }
+
+i.trash {
+  background-image: url(../../../public/icons/trash.svg);
+}
+
+i.lock-closed {
+  background-image: url(../../../public/icons/lock-closed.svg);
+}
+
+i.lock-open {
+  background-image: url(../../../public/icons/lock-open.svg);
+}
+
+i.pencil-square {
+  background-image: url(../../../public/icons/pencil-square.svg);
+}

@@ -4,7 +4,7 @@ import { Post } from "@/shared/models/Post";
 import Image from "next/image";
 import PostDate from "./PostDate";
 import { useEffect, useState } from "react";
-import { deleteBlog } from "@/app/actions";
+import { deleteBlog } from "@/app/actions/blog";
 import { revalidatePath } from "next/cache";
 import { ContentReader } from "./ContentReader";
 
@@ -29,7 +29,7 @@ export default function PostItem({ post, auth }: Props) {
       alert(e);
     }
   };
-  console.log(post);
+
   return (
     <article className="pt-12 first-of-type:pt-0 group">
       <div className="md:flex">
@@ -62,7 +62,7 @@ export default function PostItem({ post, auth }: Props) {
             </figure>
           )}
 
-          <ContentReader content={post.Content} />
+          <ContentReader content={post.Content} className="text-slate-800" />
         </div>
         {auth && (
           <div>

@@ -2,16 +2,20 @@ import dynamic from "next/dynamic";
 import Particles from "@/components/atoms/Particles";
 import RadialGradient from "@/components/atoms/RadialGradient";
 import PageTitle from "@/components/widgets/PageTitle";
-import { getBlog } from "@/app/actions";
+import { getAllPosts, getProjects } from "@/app/actions/blog";
+import { cookies } from "next/headers";
 
 export const metadata = {
   title: "shanabunny - Blog",
   description: "Blog posts",
 };
 
-const DynamicPostList = dynamic(() => import("@/components/widgets/PostList"), {
-  ssr: false,
-});
+const DynamicPostCarousel = dynamic(
+  () => import("@/components/widgets/PostCarousel"),
+  {
+    ssr: false,
+  }
+);
 
 const DynamicPostViewer = dynamic(
   () => import("@/components/widgets/PostViewer"),
@@ -21,7 +25,9 @@ const DynamicPostViewer = dynamic(
 );
 
 export default async function Blog() {
-  let data = await getBlog();
+  const cookieStore = cookies();
+  const auth = !!cookieStore.get("token");
+  let data = await getAllPosts();
   return (
     <>
       {/* Content */}
@@ -39,9 +45,9 @@ export default async function Blog() {
             {/* Page header */}
             <PageTitle title="BLOG POSTS" />
             <div className="pb-6 md:pb-12">
-              <DynamicPostList postList={data} />
+              <DynamicPostCarousel postList={data} />
             </div>
-            <DynamicPostViewer postList={data} />
+            <DynamicPostViewer postList={data} auth={auth} />
           </div>
         </div>
       </section>

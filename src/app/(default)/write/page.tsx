@@ -5,7 +5,7 @@ import RadialGradient from "@/components/atoms/RadialGradient";
 import PageTitle from "@/components/widgets/PageTitle";
 import { useState } from "react";
 import { Post } from "@/shared/models";
-import { postBlog, postFile } from "@/app/actions";
+import { postBlog, postFile } from "@/app/actions/actions";
 import { DatePicker } from "@/components/ui/DatePicker";
 import { fromZonedTime } from "date-fns-tz";
 import { useRouter } from "next/navigation";

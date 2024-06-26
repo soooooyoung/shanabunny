@@ -6,7 +6,7 @@ export const metadata = {
 import Link from "next/link";
 import Image from "next/image";
 import Profile from "@/assets/images/profile.png";
-import { post } from "@/app/actions";
+import { post } from "@/app/actions/actions";
 import { CreateUserParams, ServerResponse } from "@/shared/models";
 import { RedirectType, redirect } from "next/navigation";
 

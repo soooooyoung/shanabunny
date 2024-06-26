@@ -17,7 +17,7 @@ export const DatePicker = ({ onChange }: Props) => {
         className="btn text-sm text-white bg-purple-300 hover:bg-purple-200 shadow-sm group mr-3 rounded-s-none"
         onClick={() => {
           showModal("", (onClose) => (
-            <div className="px-3 h-90">
+            <div className="px-3 min-h-80">
               <DayPicker
                 mode="single"
                 onSelect={(date) => {

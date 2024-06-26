@@ -61,7 +61,6 @@ export default function ToolbarPlugin() {
   }, []);
 
   const formatList = (listType: string) => {
-    console.log(blockType);
     if (listType === "number" && blockType !== "number") {
       editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
       setBlockType("number");
