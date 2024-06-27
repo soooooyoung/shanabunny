@@ -5,8 +5,10 @@ import Image from "next/image";
 import PostDate from "./PostDate";
 import { useEffect, useState } from "react";
 import { deleteBlog } from "@/app/actions/blog";
-import { revalidatePath } from "next/cache";
+import trash from "@/../public/icons/trash.svg";
+import pencil from "@/../public/icons/pencil-square.svg";
 import { ContentReader } from "./ContentReader";
+import Link from "next/dist/client/link";
 
 interface Props {
   post: Post;
@@ -43,6 +45,21 @@ export default function PostItem({ post, auth }: Props) {
               )}
             </span>
           </time>
+          {auth && (
+            <div className="flex justify-center gap-4">
+              <Link href={"edit"} className="opacity-50 hover:opacity-100">
+                <Image width={16} src={pencil} alt="edit" />
+              </Link>
+              <button
+                className="opacity-50 hover:opacity-100"
+                onClick={() => {
+                  if (post.PostID) onDelete(post.PostID);
+                }}
+              >
+                <Image width={16} src={trash} alt="delete" />
+              </button>
+            </div>
+          )}
         </div>
         <div className="grow ml-8 md:ml-0 pb-12 group-last-of-type:pb-0 border-b [border-image:linear-gradient(to_right,theme(colors.cyan.400/.3),theme(colors.purple.300),theme(colors.pink.400/.3))1] group-last-of-type:border-none">
           <header>
@@ -50,7 +67,8 @@ export default function PostItem({ post, auth }: Props) {
               {post.Title}
             </h2>
           </header>
-          {post.TitleImage && (
+
+          {/* {post.TitleImage && (
             <figure className="bg-gradient-to-b from-rose-200/20 to-transparent rounded-3xl p-px mb-8">
               <Image
                 className="w-full rounded-[inherit]"
@@ -60,21 +78,10 @@ export default function PostItem({ post, auth }: Props) {
                 alt={post.Title ?? ""}
               />
             </figure>
-          )}
+          )} */}
 
           <ContentReader content={post.Content} className="text-slate-800" />
         </div>
-        {auth && (
-          <div>
-            <button
-              onClick={() => {
-                if (post.PostID) onDelete(post.PostID);
-              }}
-            >
-              delete
-            </button>
-          </div>
-        )}
       </div>
     </article>
   );

@@ -29,7 +29,7 @@ export default function PostCarousel({ postList }: Props) {
               <Link href={`blog?id=${post.PostID}`} key={post.PostID}>
                 <Image
                   className="justify-center max-w-52 grayscale opacity-50 hover:grayscale-0 hover:opacity-100"
-                  src={DefaultImage}
+                  src={post.TitleImage ? post.TitleImage : DefaultImage}
                   alt=""
                 />
                 <span>{post.Title}</span>

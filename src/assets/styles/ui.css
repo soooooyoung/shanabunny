@@ -96,7 +96,7 @@
   bottom: 0px;
   left: 0px;
   right: 0px;
-  background-color: rgba(40, 40, 40, 0.6);
+  background-color: rgba(255, 206, 206, 0.6);
   flex-grow: 0px;
   flex-shrink: 1px;
   z-index: 100;
@@ -110,7 +110,7 @@
   background-color: #fff;
   flex-direction: column;
   position: relative;
-  box-shadow: 0 0 20px 0 #444;
+  box-shadow: 0 0 20px 0 #f2d1ff;
   border-radius: 10px;
 }
 .Modal__title {
@@ -131,10 +131,11 @@
   height: 30px;
   text-align: center;
   cursor: pointer;
-  background-color: #eee;
+  color: white;
+  background-color: #ffc1cd;
 }
 .Modal__closeButton:hover {
-  background-color: #ddd;
+  background-color: #d5d3ff;
 }
 .Modal__content {
   padding-top: 20px;

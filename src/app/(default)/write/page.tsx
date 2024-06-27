@@ -18,8 +18,9 @@ const DynamicEditor = dynamic(() => import("@/components/widgets/Editor"), {
 export default function Write() {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState<Date>();
-  const [published, setPublished] = useState(false);
+  const [category, setCategory] = useState(0);
   const [postType, setPostType] = useState(false);
+  const [published, setPublished] = useState(false);
   const router = useRouter();
 
   const onSave = async (content?: string) => {
@@ -54,7 +55,7 @@ export default function Write() {
         PostType: postType ? 1 : 0,
         Title: title,
         Content,
-
+        CategoryID: category,
         Published: published,
         PostTime: date && fromZonedTime(date, "Asia/Seoul").toISOString(),
       };

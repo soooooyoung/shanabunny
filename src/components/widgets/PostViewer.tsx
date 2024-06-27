@@ -7,6 +7,9 @@ import { useEffect, useState } from "react";
 import { ContentReader } from "./ContentReader";
 import PostDate from "./PostDate";
 import { deleteBlog } from "@/app/actions/blog";
+import Pencil from "@/../public/icons/pencil-square.svg";
+import Trash from "@/../public/icons/trash.svg";
+import Particles from "../atoms/Particles";
 
 interface Props {
   postList?: Post[];
@@ -52,20 +55,20 @@ export default function PostViewer({ postList, auth }: Props) {
       {auth && (
         <div>
           <button
-            className="bg-pink-200 text-white p-2 rounded-xl float-right mx-2 hover:bg-purple-200"
-            onClick={() => {
-              if (post.PostID) onEdit(post.PostID);
-            }}
-          >
-            <i className="format pencil-square" />
-          </button>
-          <button
-            className="bg-pink-200 hover:bg-purple-200 text-white p-2 rounded-xl float-right"
+            className="bg-rose-100 hover:bg-purple-200  p-2 rounded-xl float-right"
             onClick={() => {
               if (post.PostID) onDelete(post.PostID);
             }}
           >
-            <i className="format trash" />
+            <Image src={Trash} alt="delete" width={16} />
+          </button>
+          <button
+            className="bg-rose-100 p-2 rounded-xl float-right mx-2 hover:bg-purple-200"
+            onClick={() => {
+              if (post.PostID) onEdit(post.PostID);
+            }}
+          >
+            <Image src={Pencil} alt="edit" width={16} />
           </button>
         </div>
       )}

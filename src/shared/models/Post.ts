@@ -4,6 +4,8 @@ export class Post {
   PostType?: number;
   PostID?: number;
   UserID?: number;
+  CategoryID?: number;
+
   Title?: string;
   TitleImage?: string;
   Content?: string;
@@ -23,4 +25,16 @@ export interface RawElement {
 }
 export interface RawPost extends SerializedLexicalNode {
   children: RawElement[];
+}
+
+export interface Category {
+  Name?: string;
+  CategoryID?: number;
+}
+
+export interface Mail {
+  Name?: string;
+  Email?: string;
+  Content?: string;
+  CreatedTime?: string;
 }

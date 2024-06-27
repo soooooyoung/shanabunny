@@ -4,15 +4,20 @@ import { getProjects } from "@/app/actions/blog";
 import { Post } from "@/shared/models";
 import { useEffect, useState } from "react";
 import PostItem from "./PostItem";
+import { useSearchParams } from "next/navigation";
+import { Category } from "@/shared/models/Post";
 
 interface Props {
   auth?: boolean;
   postList?: Post[];
+  categories?: Category[];
 }
 
 const LIMIT = 0;
 
-export default function PostList({ auth, postList }: Props) {
+export default function PostList({ auth, postList, categories }: Props) {
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category");
   const [postEnd, setPostEnd] = useState(false);
   const [offset, setOffset] = useState(LIMIT + 1);
   const [posts, setPosts] = useState<Post[]>(postList || []);
@@ -43,12 +48,19 @@ export default function PostList({ auth, postList }: Props) {
     <div className="">
       <div className="relative">
         {posts
-          .filter((post) => post.PostType == 0)
+          .filter((post) => {
+            if (!category || !categories || categories.length < 2)
+              return post.PostType == 0;
+
+            return (
+              post.PostType == 0 && post.CategoryID?.toString() == category
+            );
+          })
           .map((post, postIndex) => (
             <PostItem key={postIndex} post={post} auth={auth} />
           ))}
       </div>
-      <div ref={ref}>Loading...</div>
+      <div className="text-rose-200 uppercase " ref={ref}></div>
     </div>
   );
 }

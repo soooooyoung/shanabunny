@@ -1,9 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Logo from "../atoms/Logo";
 import MobileMenu from "./MobileMenu";
 import { headerData } from "@/shared/data/global.data";
-
+import { SignupMenu } from "./SignupMenu";
+import { useEffect, useState } from "react";
+import pencil from "@/../public/icons/pencil.svg";
 interface Props {
   auth?: boolean;
 }
@@ -11,6 +14,12 @@ interface Props {
 export default function Header({ auth = false }: Props) {
   const { links, actions, isSticky, position } = headerData;
   const pathname = usePathname();
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
+  useEffect(() => {
+    setIsSignedIn(auth);
+  }, [auth, isSignedIn, setIsSignedIn]);
+
   return (
     <header className="absolute w-full z-30">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -23,7 +32,7 @@ export default function Header({ auth = false }: Props) {
           {/* Desktop navigation */}
           <nav className="hidden md:flex md:grow">
             {/* Desktop menu links */}
-            <ul className={`flex grow flex-wrap items-center justify-center`}>
+            <ul className="flex grow flex-wrap items-center justify-center">
               {links &&
                 links.map(({ label, href, icon: isContext, links }, index) => (
                   <li key={`item-link-${index}`}>
@@ -41,27 +50,22 @@ export default function Header({ auth = false }: Props) {
           </nav>
 
           {/* Desktop sign in links */}
-
-          <ul className="flex-1 flex justify-end items-center">
-            <li>
-              <Link
-                className="font-medium text-sm text-indigo-300  hover:text-pink-300 whitespace-nowrap transition duration-150 ease-in-out"
-                href="/signin"
-              >
-                Sign in
-              </Link>
-            </li>
-            <li className="ml-6">
-              <Link
-                className="btn-sm text-white transition duration-150 ease-in-out w-full group [background:linear-gradient(theme(colors.pink.300),_theme(colors.rose.300))_padding-box,_conic-gradient(theme(colors.rose.200),_theme(colors.pink.300)_25%,_theme(colors.purple.200)_75%,_theme(colors.rose.200)_100%)_border-box] relative before:absolute before:inset-0 before:bg-pink-300/30 before:rounded-full before:pointer-events-none hover:opacity-80"
-                href="/signup"
-              >
-                <span className="relative inline-flex items-center">
-                  Sign up ♥
-                </span>
-              </Link>
-            </li>
-          </ul>
+          {isSignedIn ? (
+            <ul className="flex-1 flex justify-end items-center">
+              {!pathname.includes("write") && (
+                <li>
+                  <Link
+                    className="font-medium text-sm text-indigo-300  hover:text-pink-300 whitespace-nowrap transition duration-150 ease-in-out"
+                    href="/write"
+                  >
+                    <Image src={pencil} alt="write" width={16} />
+                  </Link>
+                </li>
+              )}
+            </ul>
+          ) : (
+            <SignupMenu />
+          )}
           <MobileMenu />
         </div>
       </div>

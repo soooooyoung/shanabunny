@@ -1,11 +1,23 @@
+"use client";
+
 import Image from "next/image";
 import Particles from "@/components/atoms/Particles";
 import Room from "@/assets/images/bg1.png";
 import Chair from "@/assets/images/object1.png";
 import Desk from "@/assets/images/object2.png";
 import Profile from "@/assets/images/profile.png";
+import { useModal } from "@/shared/hooks/useModal";
+import ContactForm from "../widgets/ContactForm";
 
 export default function Hero() {
+  const [modal, showModal] = useModal();
+  const onSuccess = () => {
+    showModal("", () => (
+      <div className="w-full p-8 my-8 mx-auto rounded-2xl select-none">
+        Message Successfully Sent!
+      </div>
+    ));
+  };
   return (
     <section>
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 ">
@@ -98,7 +110,7 @@ export default function Hero() {
               <div>
                 <a
                   className="btn text-slate-900 bg-gradient-to-r from-white/80 via-white to-white/80 hover:bg-white w-full transition duration-150 ease-in-out group"
-                  href="#0"
+                  href="/projects"
                 >
                   View Portfolio
                   <span className="tracking-normal text-pink-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">
@@ -107,9 +119,13 @@ export default function Hero() {
                 </a>
               </div>
               <div>
-                <a
+                <button
                   className="btn text-white hover:text-white bg-cyan-200 bg-opacity-70 hover:bg-opacity-50 w-full transition duration-150 ease-in-out"
-                  href="#0"
+                  onClick={() => {
+                    showModal("", (onClose) => (
+                      <ContactForm onClose={onClose} onSuccess={onSuccess} />
+                    ));
+                  }}
                 >
                   <svg
                     className="shrink-0 fill-white mr-3"
@@ -120,12 +136,13 @@ export default function Hero() {
                     <path d="m1.999 0 1 2-1 2 2-1 2 1-1-2 1-2-2 1zM11.999 0l1 2-1 2 2-1 2 1-1-2 1-2-2 1zM11.999 10l1 2-1 2 2-1 2 1-1-2 1-2-2 1zM6.292 7.586l2.646-2.647L11.06 7.06 8.413 9.707zM0 13.878l5.586-5.586 2.122 2.121L2.12 16z" />
                   </svg>
                   <span>Contact shana</span>
-                </a>
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
+      {modal}
     </section>
   );
 }

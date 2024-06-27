@@ -67,7 +67,7 @@ function PortalImpl({
   return (
     <div className="Modal__overlay" role="dialog">
       <div className="Modal__modal" tabIndex={-1} ref={modalRef}>
-        <h2 className="Modal__title">{title}</h2>
+        {/* <h2 className="Modal__title">{title}</h2> */}
         <button
           className="Modal__closeButton"
           aria-label="Close modal"

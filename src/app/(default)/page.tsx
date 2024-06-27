@@ -19,7 +19,7 @@ import Features from "@/components/sections/Features";
 import { preload } from "@/app/actions";
 
 export default function Home() {
-  // preload();
+  preload();
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { Post } from "./Post";
+import { Post, Category } from "./Post";
 
 export interface ServerResponse extends Response {
   success: boolean;
@@ -7,6 +7,10 @@ export interface ServerResponse extends Response {
 
 export interface PostResponse extends ServerResponse {
   result: Post[];
+}
+
+export interface CategoryResponse extends ServerResponse {
+  result: Category[];
 }
 
 export interface FileResponse extends ServerResponse {

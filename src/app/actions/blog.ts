@@ -1,14 +1,27 @@
-import { PostResponse, Post } from "@/shared/models";
+import { PostResponse, Post, ServerResponse } from "@/shared/models";
 import { revalidatePath } from "next/cache";
 import { del, get, post } from "./actions";
+import { Mail } from "@/shared/models/Post";
+import { cache } from "react";
+import { CategoryResponse } from "@/shared/models/Response";
 
 export const preload = async () => {
-  await getAllPosts();
+  await getAllCategories();
 };
+
+export const getAllCategories = cache(async () => {
+  const response = await get<CategoryResponse>("post/categories", {
+    cache: "no-cache",
+    // next: { revalidate: 3600 },
+  });
+
+  return response.result;
+});
 
 export const getAllPosts = async () => {
   const response = await get<PostResponse>("post", {
-    next: { revalidate: 3600 },
+    cache: "no-cache",
+    // next: { revalidate: 3600 },
   });
 
   return response.result;
@@ -47,6 +60,16 @@ export const deleteBlog = async (postID: number) => {
   try {
     const response = await del<PostResponse>(`post/${postID}`);
     if (response.success) revalidatePath("/[slug]", "page");
+    return response;
+  } catch (e) {
+    console.log(e);
+    //TODO: handle error with popup
+  }
+};
+
+export const postMail = async (params: Mail) => {
+  try {
+    const response = await post<ServerResponse, Mail>("post/mail", params);
     return response;
   } catch (e) {
     console.log(e);
