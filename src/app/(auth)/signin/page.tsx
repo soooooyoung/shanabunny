@@ -2,7 +2,7 @@ import Profile from "@/assets/images/profile.png";
 import Link from "next/link";
 import Image from "next/image";
 import { User } from "@/shared/models";
-import { postSignin } from "@/app/actions/actions";
+import { postSignin } from "@/app/actions";
 import { redirect } from "next/navigation";
 
 export const metadata = {

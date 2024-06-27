@@ -1,15 +1,6 @@
 "use server";
 
 import { cookies } from "next/headers";
-import {
-  FileResponse,
-  PostResponse,
-  Post,
-  ServerResponse,
-  User,
-} from "@/shared/models";
-import { base64ToArrayBuffer } from "@/shared/utils/common";
-import { revalidatePath } from "next/cache";
 
 const headers: HeadersInit = {
   apikey: process.env.APIKEY || "",
@@ -102,53 +93,4 @@ export const postFormData = async <T>(
     body: params,
     ...options,
   }).then((res) => res.json() as T);
-};
-
-/**
- * Auth
- */
-export const postSignin = async (params: User) => {
-  try {
-    const response = await post<ServerResponse, User>("signin", params);
-    return response.success;
-
-    //TODO: handle response with popup
-  } catch (e) {
-    return false;
-  }
-};
-
-/**
- * File
- */
-
-// export const getFile = async (FileID: string) => {
-//   try {
-//     const response = await get<Response>(`file/${FileID}`, {
-//       next: { revalidate: 3600 },
-//     });
-//     const blob = await response.blob();
-//     const base64data = await extractBase64Data(blob);
-
-//     if (!response.ok) {
-//       throw new Error("Network Error");
-//     }
-
-//     return base64data;
-//   } catch (e) {
-//     //TODO: handle error with popup
-//   }
-// };
-
-export const postFile = async (base64str: string) => {
-  try {
-    const formData = new FormData();
-    const arrayBuffer = base64ToArrayBuffer(base64str);
-    formData.append("file", new Blob([arrayBuffer]));
-    const response = await postFormData<FileResponse>("file", formData);
-    return response.success ? response.result.FileID : 0;
-  } catch (e) {
-    throw e;
-    //TODO: handle error with popup
-  }
 };

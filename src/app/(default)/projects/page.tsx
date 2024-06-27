@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import Particles from "@/components/atoms/Particles";
 import RadialGradient from "@/components/atoms/RadialGradient";
 import PageTitle from "@/components/widgets/PageTitle";
-import { getProjects } from "@/app/actions/blog";
+import { getProjects } from "@/app/actions";
 import { cookies } from "next/headers";
 
 export const metadata = {

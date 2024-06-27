@@ -2,10 +2,6 @@ import { PostResponse, Post } from "@/shared/models";
 import { revalidatePath } from "next/cache";
 import { del, get, post } from "./actions";
 
-/**
- * Blog
- */
-
 export const preload = async () => {
   await getAllPosts();
 };
