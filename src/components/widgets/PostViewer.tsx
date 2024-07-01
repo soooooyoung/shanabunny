@@ -9,7 +9,6 @@ import PostDate from "./PostDate";
 import { deleteBlog } from "@/app/actions/blog";
 import Pencil from "@/../public/icons/pencil-square.svg";
 import Trash from "@/../public/icons/trash.svg";
-import Particles from "../atoms/Particles";
 
 interface Props {
   postList?: Post[];
@@ -46,13 +45,13 @@ export default function PostViewer({ postList, auth }: Props) {
     return null;
   }
 
-  let post =
-    postList?.find((post) => post.PostID && post.PostID == Number(id ?? 1)) ??
-    postList[postList.length - 1];
+  let post = id
+    ? postList?.find((post) => post.PostID && post.PostID == Number(id ?? 1))
+    : postList[0];
 
   return (
     <>
-      {auth && (
+      {auth && post && (
         <div>
           <button
             className="bg-rose-100 hover:bg-purple-200  p-2 rounded-xl float-right"
