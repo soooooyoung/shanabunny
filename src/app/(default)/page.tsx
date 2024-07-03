@@ -17,12 +17,20 @@ import flatbuffers from "@/assets/images/flatbuffers.png";
 import protobuf from "@/assets/images/protobuf.png";
 import Features from "@/components/sections/Features";
 import { preload } from "@/app/actions";
+import MusicPlayer from "@/components/widgets/MusicPlayer";
+import { getMusicList } from "../actions/file";
 
-export default function Home() {
-  preload();
+export default async function Home() {
+  const data = await getMusicList();
 
   return (
     <>
+      <div className="flex">
+        <MusicPlayer
+          className="pt-24 md:pt-32 mx-auto -mb-24"
+          musicList={data.result}
+        />
+      </div>
       <Hero />
       <Carousel
         images={[

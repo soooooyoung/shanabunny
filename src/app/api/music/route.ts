@@ -13,10 +13,11 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const response = await fetch(`${process.env.HOST}/file/${id}`, {
-      next: { revalidate: 3600 },
+    const response = await fetch(`${process.env.HOST}/file/music/${id}`, {
+      cache: "no-cache",
+      // next: { revalidate: 3600 },
       headers: {
-        "Content-Type": "application/octet-stream",
+        "Content-Type": "audio/mpeg",
         apikey: process.env.APIKEY || "",
         Cookie: `token=${token}`,
       },
@@ -31,13 +32,12 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const imageBuffer = await response.arrayBuffer();
+    const audioBuffer = await response.arrayBuffer();
 
-    return new NextResponse(imageBuffer, {
+    return new NextResponse(audioBuffer, {
       headers: {
-        "Content-Type":
-          response.headers.get("content-type") || "application/octet-stream",
-        "Content-Length": String(imageBuffer.byteLength),
+        "Content-Type": response.headers.get("content-type") || "audio/mpeg",
+        "Content-Length": String(audioBuffer.byteLength),
       },
     });
   } catch (error) {

@@ -11,8 +11,7 @@ export const preload = async () => {
 
 export const getAllCategories = cache(async () => {
   const response = await get<CategoryResponse>("post/categories", {
-    cache: "no-cache",
-    // next: { revalidate: 3600 },
+    next: { revalidate: 3600 },
   });
 
   return response.result;
@@ -20,8 +19,7 @@ export const getAllCategories = cache(async () => {
 
 export const getAllPosts = async () => {
   const response = await get<PostResponse>("post", {
-    cache: "no-cache",
-    // next: { revalidate: 3600 },
+    next: { revalidate: 3600 },
   });
 
   return response.result;
@@ -36,8 +34,7 @@ export const getProjects = async (offset: number = 0, limit: number = 0) => {
       "post/page",
       { offset, limit },
       {
-        cache: "no-cache",
-        // next: { revalidate: 3600 },
+        next: { revalidate: 3600 },
       }
     );
     return response.result;

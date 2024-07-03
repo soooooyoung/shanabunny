@@ -1,5 +1,7 @@
-export class FileData {
+export interface FileData {
   FileID?: number;
   UserID?: number;
-  EncodedData?: string;
+  FileName?: string;
+  Data?: string;
+  Path?: string;
 }

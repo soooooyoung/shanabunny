@@ -9,6 +9,7 @@ import { postBlog, postFile } from "@/app/actions";
 import { DatePicker } from "@/components/ui/DatePicker";
 import { fromZonedTime } from "date-fns-tz";
 import { useRouter } from "next/navigation";
+import { base64ToArrayBuffer } from "@/shared/utils/common";
 
 // https://nextjs.org/docs/app/building-your-application/optimizing/lazy-loading
 const DynamicEditor = dynamic(() => import("@/components/widgets/Editor"), {
@@ -40,7 +41,8 @@ export default function Write() {
 
       await Promise.all(
         base64Images.map(async ({ index, src }) => {
-          const id = await postFile(src);
+          const arrayBuffer = base64ToArrayBuffer(src);
+          const id = await postFile(arrayBuffer);
 
           images[index].src = id ? `/api/file?id=${id}` : "";
           if (!id) throw new Error("Failed to save Image");

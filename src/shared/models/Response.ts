@@ -1,3 +1,4 @@
+import { FileData } from "./FileData";
 import { Post, Category } from "./Post";
 
 export interface ServerResponse extends Response {
@@ -15,4 +16,8 @@ export interface CategoryResponse extends ServerResponse {
 
 export interface FileResponse extends ServerResponse {
   result: { FileID: number };
+}
+
+export interface FileListResponse extends ServerResponse {
+  result: FileData[];
 }

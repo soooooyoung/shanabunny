@@ -1,16 +1,29 @@
-import { FileResponse } from "@/shared/models";
-import { base64ToArrayBuffer } from "@/shared/utils/common";
-import { postFormData } from "./actions";
+import { FileData, FileResponse } from "@/shared/models";
+import { get, postFormData } from "./actions";
+import { FileListResponse } from "@/shared/models/Response";
 
-export const postFile = async (base64str: string) => {
+export const postFile = async (
+  buffer: ArrayBuffer,
+  path?: string,
+  filename?: string
+) => {
   try {
     const formData = new FormData();
-    const arrayBuffer = base64ToArrayBuffer(base64str);
-    formData.append("file", new Blob([arrayBuffer]));
-    const response = await postFormData<FileResponse>("file", formData);
+    formData.append("file", new Blob([buffer]), filename);
+    const response = await postFormData<FileResponse>(path ?? "file", formData);
     return response.success ? response.result.FileID : 0;
   } catch (e) {
     throw e;
     //TODO: handle error with popup
   }
+};
+
+export const getMusicList = async () => {
+  const response = await get<FileListResponse>("file/music/list", {
+    cache: "no-cache",
+    // next: {
+    //   revalidate: 3600,
+    // },
+  });
+  return response;
 };
