@@ -11,7 +11,7 @@ export const preload = async () => {
 
 export const getAllCategories = cache(async () => {
   const response = await get<CategoryResponse>("post/categories", {
-    next: { revalidate: 3600 },
+    next: { revalidate: 3600 * 24 },
   });
 
   return response.result;

@@ -20,10 +20,9 @@ export const postFile = async (
 
 export const getMusicList = async () => {
   const response = await get<FileListResponse>("file/music/list", {
-    cache: "no-cache",
-    // next: {
-    //   revalidate: 3600,
-    // },
+    next: {
+      revalidate: 3600 * 6,
+    },
   });
   return response;
 };

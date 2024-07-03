@@ -13,8 +13,7 @@ export async function GET(request: NextRequest) {
 
   try {
     const response = await fetch(`${process.env.HOST}/file/music/${id}`, {
-      cache: "no-cache",
-      // next: { revalidate: 3600 },
+      next: { revalidate: 3600 },
       headers: {
         "Content-Type": "audio/mpeg",
         apikey: process.env.APIKEY || "",
