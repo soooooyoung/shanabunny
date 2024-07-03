@@ -2,6 +2,7 @@
 
 import { FileData } from "@/shared/models";
 import { useEffect, useRef, useState } from "react";
+import RadialGradient from "../atoms/RadialGradient";
 
 interface Props {
   className?: string;
@@ -20,7 +21,7 @@ export default function MusicPlayer({ musicList, className }: Props) {
   }, []);
 
   if (!isMounted || !musicList || musicList.length < 1) {
-    return null;
+    return <div className={`${className}`} />;
   }
 
   const onClickEqualizer = () => {
@@ -65,7 +66,11 @@ export default function MusicPlayer({ musicList, className }: Props) {
 
   return (
     <div className={`${className}`}>
-      <div className="flex gap-4 justify-center">
+      <RadialGradient
+        OuterColor="bg-yellow-100/80"
+        InnerColor="bg-cyan-200/20"
+      />
+      <div>
         <audio ref={ref} loop autoPlay>
           <source
             src={`/api/music?id=${musicList[index].FileID}`}
@@ -73,38 +78,11 @@ export default function MusicPlayer({ musicList, className }: Props) {
           />
           Your browser does not support the audio element.
         </audio>
-        {/* <div className="my-auto text-pink-300">
-          <button className=" hover:text-purple-200" onClick={onClickPrevious}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="size-5"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M4.72 9.47a.75.75 0 0 0 0 1.06l4.25 4.25a.75.75 0 1 0 1.06-1.06L6.31 10l3.72-3.72a.75.75 0 1 0-1.06-1.06L4.72 9.47Zm9.25-4.25L9.72 9.47a.75.75 0 0 0 0 1.06l4.25 4.25a.75.75 0 1 0 1.06-1.06L11.31 10l3.72-3.72a.75.75 0 0 0-1.06-1.06Z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </button>
-          <button onClick={onClickNext}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="size-5"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M15.28 9.47a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 1 1-1.06-1.06L13.69 10 9.97 6.28a.75.75 0 0 1 1.06-1.06l4.25 4.25ZM6.03 5.22l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L8.69 10 4.97 6.28a.75.75 0 0 1 1.06-1.06Z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </div> */}
-        <div className="equalizer hover:opacity-65">
-          <button onClick={onClickEqualizer}>
+        <button
+          className="flex gap-4 justify-center group"
+          onClick={onClickEqualizer}
+        >
+          <div className="equalizer group-hover:opacity-80 my-auto ">
             <svg
               className="fill-pink-300"
               xmlns="http://www.w3.org/2000/svg"
@@ -144,11 +122,52 @@ export default function MusicPlayer({ musicList, className }: Props) {
                 </>
               )}
             </svg>
-          </button>
-        </div>
+          </div>
+          <div className="text-center max-sm:hidden group-hover:opacity-80 bg-clip-text text-transparent bg-gradient-to-r from-pink-300/60 via-purple-200 to-cyan-300/60">
+            <span>{musicList[index].FileName?.replace(".mp3", "")}</span>
+          </div>
+        </button>
       </div>
-      {/* <div className="flex text-center">
-        <span>{musicList[index].FileName}</span>
+      {/* <div className="flex my-auto gap-4 max-sm:hidden">
+        <button
+          disabled={musicList.length < 2}
+          className=" hover:text-purple-200 disabled:text-slate-300"
+          onClick={onClickPrevious}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            className="size-4"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M3.22 7.595a.75.75 0 0 0 0 1.06l3.25 3.25a.75.75 0 0 0 1.06-1.06l-2.72-2.72 2.72-2.72a.75.75 0 0 0-1.06-1.06l-3.25 3.25Zm8.25-3.25-3.25 3.25a.75.75 0 0 0 0 1.06l3.25 3.25a.75.75 0 1 0 1.06-1.06l-2.72-2.72 2.72-2.72a.75.75 0 0 0-1.06-1.06Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+        <div className=" text-center ">
+          <span>{musicList[index].FileName?.replace(".mp3", "")}</span>
+        </div>
+        <button
+          disabled={musicList.length < 2}
+          onClick={onClickNext}
+          className=" hover:text-purple-200 disabled:text-slate-300"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            className="size-4"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12.78 7.595a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06l2.72-2.72-2.72-2.72a.75.75 0 0 1 1.06-1.06l3.25 3.25Zm-8.25-3.25 3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06l2.72-2.72-2.72-2.72a.75.75 0 0 1 1.06-1.06Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
       </div> */}
     </div>
   );

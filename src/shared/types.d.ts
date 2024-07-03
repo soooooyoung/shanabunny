@@ -23,7 +23,3 @@ type BlogPost = {
   title: string;
   content: string;
 };
-type  DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  // extends React's HTMLAttributes
-  align?: string;
-}

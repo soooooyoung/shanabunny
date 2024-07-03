@@ -27,7 +27,7 @@ export default async function Home() {
     <>
       <div className="flex">
         <MusicPlayer
-          className="pt-24 md:pt-32 mx-auto -mb-24"
+          className="pt-24 md:pt-32 mx-auto md:pb-6 "
           musicList={data.result}
         />
       </div>

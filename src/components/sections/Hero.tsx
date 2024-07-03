@@ -35,7 +35,7 @@ export default function Hero() {
           color={{ r: 214, g: 51, b: 255 }}
         />
 
-        <div className="pt-24 pb-4 md:pt-32 md:pb-16">
+        <div className="pb-4 md:pb-16">
           {/* Banner */}
           <div className="max-w-3xl mx-auto text-center hidden md:block">
             <div className="mb-6" data-aos="fade-down">

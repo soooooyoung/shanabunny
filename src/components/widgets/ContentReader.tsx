@@ -1,6 +1,6 @@
 "use client";
 
-import { sanitize } from "dompurify";
+import DOMPurify from "dompurify";
 interface Props {
   content?: string;
   className?: string;
@@ -11,7 +11,7 @@ export const ContentReader = ({ content, className }: Props) => {
     <div
       className={className}
       dangerouslySetInnerHTML={{
-        __html: sanitize(content ?? ""),
+        __html: DOMPurify.sanitize(content ?? ""),
       }}
     />
   );

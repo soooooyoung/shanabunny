@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
-  const token = request.cookies.get("token")?.value;
 
   if (!id) {
     return NextResponse.json(
@@ -19,7 +18,6 @@ export async function GET(request: NextRequest) {
       headers: {
         "Content-Type": "audio/mpeg",
         apikey: process.env.APIKEY || "",
-        Cookie: `token=${token}`,
       },
       credentials: "include",
       mode: "cors",
@@ -41,7 +39,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Error fetching image:", error);
+    console.error("Error fetching audio:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
