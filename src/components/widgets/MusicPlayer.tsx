@@ -18,7 +18,8 @@ export default function MusicPlayer({ musicList, className }: Props) {
 
   useEffect(() => {
     setIsMounted(true);
-  }, []);
+    if (musicList) setIndex((musicList.length * Math.random()) | 0);
+  }, [musicList]);
 
   if (!isMounted || !musicList || musicList.length < 1) {
     return <div className={`${className}`} />;
@@ -67,10 +68,10 @@ export default function MusicPlayer({ musicList, className }: Props) {
   return (
     <div className={`${className}`}>
       <RadialGradient
-        OuterColor="bg-yellow-100/80"
+        OuterColor="bg-gradient-to-r from-pink-300/60 via-yellow-200/80 to-cyan-200/40"
         InnerColor="bg-cyan-200/20"
       />
-      <div>
+      <div className="flex justify-center pt-24 md:pt-32 mx-auto md:pb-6">
         <audio ref={ref} loop autoPlay>
           <source
             src={`/api/music?id=${musicList[index].FileID}`}
@@ -82,7 +83,7 @@ export default function MusicPlayer({ musicList, className }: Props) {
           className="flex gap-4 justify-center group"
           onClick={onClickEqualizer}
         >
-          <div className="equalizer group-hover:opacity-80 my-auto ">
+          <div className="equalizer group-hover:opacity-60 my-auto  drop-shadow-sm ">
             <svg
               className="fill-pink-300"
               xmlns="http://www.w3.org/2000/svg"
@@ -123,7 +124,7 @@ export default function MusicPlayer({ musicList, className }: Props) {
               )}
             </svg>
           </div>
-          <div className="text-center max-sm:hidden group-hover:opacity-80 bg-clip-text text-transparent bg-gradient-to-r from-pink-300/60 via-purple-200 to-cyan-300/60">
+          <div className="text-center max-sm:hidden group-hover:opacity-60 bg-clip-text text-transparent bg-gradient-to-r from-pink-300/60 via-purple-200 to-cyan-300/60 drop-shadow-sm ">
             <span>{musicList[index].FileName?.replace(".mp3", "")}</span>
           </div>
         </button>

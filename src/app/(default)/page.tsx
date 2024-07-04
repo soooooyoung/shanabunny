@@ -25,12 +25,10 @@ export default async function Home() {
 
   return (
     <>
-      <div className="flex">
-        <MusicPlayer
-          className="pt-24 md:pt-32 mx-auto md:pb-6 "
-          musicList={data.result}
-        />
-      </div>
+      <section>
+        <MusicPlayer className="relative" musicList={data.result} />
+      </section>
+
       <Hero />
       <Carousel
         images={[
