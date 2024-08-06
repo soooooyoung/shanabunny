@@ -16,7 +16,6 @@ import aws from "@/assets/images/aws.png";
 import flatbuffers from "@/assets/images/flatbuffers.png";
 import protobuf from "@/assets/images/protobuf.png";
 import Features from "@/components/sections/Features";
-import { preload } from "@/app/actions";
 import MusicPlayer from "@/components/widgets/MusicPlayer";
 import { getMusicList } from "../actions/file";
 
@@ -26,7 +25,7 @@ export default async function Home() {
   return (
     <>
       <section>
-        <MusicPlayer className="relative" musicList={data.result} />
+        <MusicPlayer className="relative" musicList={data?.result} />
       </section>
 
       <Hero />

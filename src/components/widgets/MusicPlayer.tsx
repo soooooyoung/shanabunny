@@ -18,7 +18,9 @@ export default function MusicPlayer({ musicList, className }: Props) {
 
   useEffect(() => {
     setIsMounted(true);
-    if (musicList) setIndex((musicList.length * Math.random()) | 0);
+    if (musicList) {
+      setIndex((musicList.length * Math.random()) | 0);
+    }
   }, [musicList]);
 
   if (!isMounted || !musicList || musicList.length < 1) {

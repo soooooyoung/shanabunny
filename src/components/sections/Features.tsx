@@ -112,7 +112,6 @@ export default function Features() {
                           mx-auto max-w-none md:relative md:pb-0 pb-4 "
                           src={Daisy}
                           width="200"
-                          height="400"
                           alt="Feature 01"
                         />
                       </div>
@@ -120,7 +119,6 @@ export default function Features() {
                         <Image
                           className="absolute bottom-0 left-1/2 -translate-x-1/2 mx-auto max-w-none md:relative md:left-0{md}transla{}-x-0 "
                           src={Nana}
-                          width="504"
                           height="400"
                           alt="Feature 01"
                         />

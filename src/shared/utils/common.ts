@@ -1,3 +1,4 @@
+// Utility Functions
 export function joinClasses(
   ...args: Array<string | boolean | null | undefined>
 ) {
@@ -12,4 +13,8 @@ export const base64ToArrayBuffer = (base64: string): ArrayBuffer => {
     bytes[i] = binaryString.charCodeAt(i);
   }
   return bytes.buffer;
+};
+
+export const showError = (message?: unknown) => {
+  alert(message);
 };

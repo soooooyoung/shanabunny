@@ -1,6 +1,7 @@
-import { FileData, FileResponse } from "@/shared/models";
+import { FileResponse } from "@/shared/models";
 import { get, postFormData } from "./actions";
 import { FileListResponse } from "@/shared/models/Response";
+import { showError } from "@/shared/utils/common";
 
 export const postFile = async (
   buffer: ArrayBuffer,
@@ -13,16 +14,24 @@ export const postFile = async (
     const response = await postFormData<FileResponse>(path ?? "file", formData);
     return response.success ? response.result.FileID : 0;
   } catch (e) {
-    throw e;
-    //TODO: handle error with popup
+    showError(e);
   }
 };
 
 export const getMusicList = async () => {
-  const response = await get<FileListResponse>("file/music/list", {
-    next: {
-      revalidate: 3600 * 6,
-    },
-  });
-  return response;
+  try {
+    const response = await get<FileListResponse>(
+      "file/music/list",
+
+      {
+        cache: "no-cache",
+        // next: {
+        //   revalidate: 3600,
+        // },
+      }
+    );
+    return response;
+  } catch (e) {
+    showError(e);
+  }
 };

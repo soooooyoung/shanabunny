@@ -24,11 +24,11 @@ export default function SignUp() {
         `${process.env.HOST}/signup`,
         params
       );
+      if (response.success) redirect("/");
       //TODO: handle response with popup
     } catch (e) {
       //TODO: handle error with popup
     }
-    redirect("/", RedirectType.replace);
   }
   return (
     <>

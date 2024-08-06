@@ -31,7 +31,6 @@ export default function RootLayout({ children }: LayoutProps) {
       <body
         className={`${inter.className} font-inter antialiased tracking-tight`}
       >
-        <Script src="ttps://www.google.com/recaptcha/api.js" />
         <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
           {children}
         </div>

@@ -7,8 +7,6 @@ import { useEffect, useState } from "react";
 import { deleteBlog } from "@/app/actions/blog";
 import trash from "@/../public/icons/trash.svg";
 import pencil from "@/../public/icons/pencil-square.svg";
-import up from "@/../public/icons/chevron-double-up.svg";
-import down from "@/../public/icons/chevron-double-down.svg";
 import { ContentReader } from "./ContentReader";
 import Link from "next/dist/client/link";
 
@@ -19,7 +17,7 @@ interface Props {
 }
 export default function PostItem({ post, auth, folded }: Props) {
   const [isMounted, setIsMounted] = useState(false);
-  const [isFolded, setIsFolded] = useState(folded);
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -48,36 +46,8 @@ export default function PostItem({ post, auth, folded }: Props) {
                 post.CreatedTime && <PostDate dateString={post.CreatedTime} />
               )}
             </span>
-            <div className="flex ml-4">
-              <button
-                className="opacity-50 hover:opacity-100"
-                onClick={() => {
-                  setIsFolded(!isFolded);
-                }}
-              >
-                {isFolded ? (
-                  <Image width={16} src={down} alt="delete" />
-                ) : (
-                  <Image width={16} src={up} alt="delete" />
-                )}
-              </button>
-            </div>
           </time>
 
-          {/* <div>
-            <button
-              className="opacity-50 hover:opacity-100 float-right mr-20"
-              onClick={() => {
-                setIsFolded(!isFolded);
-              }}
-            >
-              {isFolded ? (
-                <Image width={16} src={down} alt="delete" />
-              ) : (
-                <Image width={16} src={up} alt="delete" />
-              )}
-            </button>
-          </div> */}
           {auth && (
             <div className="flex justify-center gap-4">
               <Link href={"edit"} className="opacity-50 hover:opacity-100">
@@ -100,21 +70,7 @@ export default function PostItem({ post, auth, folded }: Props) {
               {post.Title}
             </h2>
           </header>
-
-          {/* {post.TitleImage && (
-            <figure className="bg-gradient-to-b from-rose-200/20 to-transparent rounded-3xl p-px mb-8">
-              <Image
-                className="w-full rounded-[inherit]"
-                src={post.TitleImage}
-                width={574}
-                height={326}
-                alt={post.Title ?? ""}
-              />
-            </figure>
-          )} */}
-          {!isFolded && (
-            <ContentReader content={post.Content} className="text-slate-800" />
-          )}
+          <ContentReader content={post.Content} className="text-slate-800" />
         </div>
       </div>
     </article>

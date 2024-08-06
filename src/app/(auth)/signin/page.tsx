@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { User } from "@/shared/models";
 import { postSignin } from "@/app/actions";
-import { redirect } from "next/navigation";
+import { redirect, RedirectType } from "next/navigation";
 
 export const metadata = {
   title: "shanabunny - Sign In",
@@ -11,17 +11,28 @@ export const metadata = {
 };
 
 export default function SignIn() {
-  async function submitForm(formData: FormData) {
+  const submitForm = async (formData: FormData) => {
     "use server";
-    const params: User = {
-      Username: formData.get("username") as string,
-      Password: formData.get("password") as string,
-    };
-    const result = await postSignin(params);
-    if (result) {
-      redirect("/");
-    }
-  }
+    let result = false;
+    try {
+      const params: User = {
+        Username: formData.get("username") as string,
+        Password: formData.get("password") as string,
+      };
+      const response = await postSignin(params);
+      if (response && response.success) {
+        result = true;
+      }
+    } catch (e) {}
+    /***
+     * Redirect bug with NextJS, move the redirect outside of the try-catch
+     * https://stackoverflow.com/questions/75796703/redirect-from-server-side-in-nextjs-13
+     * https://stackoverflow.com/questions/78630979/redirecting-from-a-server-component-in-nextjs
+     *
+     */
+    if (result) redirect("/");
+  };
+
   return (
     <>
       {/* Page header */}
@@ -29,6 +40,7 @@ export default function SignIn() {
         {/* Logo */}
         <a href="/">
           <Image
+            priority
             className="justify-center m-auto max-w-32"
             src={Profile}
             alt="Profile"
@@ -51,6 +63,7 @@ export default function SignIn() {
                 Username
               </label>
               <input
+                autoComplete="username"
                 name="username"
                 id="username"
                 className="form-input w-full"

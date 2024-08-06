@@ -4,25 +4,27 @@ import { del, get, post } from "./actions";
 import { Mail } from "@/shared/models/Post";
 import { cache } from "react";
 import { CategoryResponse } from "@/shared/models/Response";
-
-export const preload = async () => {
-  await getAllCategories();
-};
+import { showError } from "@/shared/utils/common";
 
 export const getAllCategories = cache(async () => {
-  const response = await get<CategoryResponse>("post/categories", {
-    next: { revalidate: 3600 * 24 },
-  });
-
-  return response.result;
+  try {
+    const response = await get<CategoryResponse>("post/categories", {
+      next: { revalidate: 3600 * 24 },
+    });
+    return response.result;
+  } catch (e) {
+    showError(e);
+  }
 });
 
 export const getAllPosts = async () => {
-  const response = await get<PostResponse>("post", {
-    next: { revalidate: 3600 },
-  });
-
-  return response.result;
+  try {
+    const response = await get<PostResponse>("post", {
+      cache: "no-cache",
+      // next: { revalidate: 1200 },
+    });
+    return response.result;
+  } catch (e) {}
 };
 
 export const getProjects = async (offset: number = 0, limit: number = 0) => {
@@ -33,13 +35,15 @@ export const getProjects = async (offset: number = 0, limit: number = 0) => {
     >(
       "post/page",
       { offset, limit },
+
       {
-        next: { revalidate: 3600 },
+        cache: "no-cache",
+        // next: { revalidate: 1200 },
       }
     );
     return response.result;
   } catch (e) {
-    //TODO: handle error with popup
+    showError(e);
   }
 };
 
@@ -48,19 +52,18 @@ export const postBlog = async (params: Post) => {
     const response = await post<PostResponse, Post>("post", params);
     return response;
   } catch (e) {
-    console.log(e);
-    //TODO: handle error with popup
+    showError(e);
   }
 };
 
 export const deleteBlog = async (postID: number) => {
   try {
     const response = await del<PostResponse>(`post/${postID}`);
+    console.log("RESPONSE", response);
     if (response.success) revalidatePath("/[slug]", "page");
     return response;
   } catch (e) {
-    console.log(e);
-    //TODO: handle error with popup
+    showError(e);
   }
 };
 
@@ -69,7 +72,6 @@ export const postMail = async (params: Mail) => {
     const response = await post<ServerResponse, Mail>("post/mail", params);
     return response;
   } catch (e) {
-    console.log(e);
-    //TODO: handle error with popup
+    showError(e);
   }
 };
