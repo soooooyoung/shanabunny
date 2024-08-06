@@ -28,7 +28,7 @@ export default function PostItem({ post, auth, folded }: Props) {
   const onDelete = async (postId: number) => {
     if (!auth) return;
     try {
-      const response = await deleteBlog(postId);
+      await deleteBlog(postId);
     } catch (e) {
       alert(e);
     }

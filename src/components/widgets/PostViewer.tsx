@@ -9,6 +9,8 @@ import PostDate from "./PostDate";
 import { deleteBlog } from "@/app/actions/blog";
 import Pencil from "@/../public/icons/pencil-square.svg";
 import Trash from "@/../public/icons/trash.svg";
+import { revalidatePath } from "next/cache";
+import { refresh } from "aos";
 
 interface Props {
   postList?: Post[];
@@ -22,8 +24,10 @@ export default function PostViewer({ postList, auth }: Props) {
 
   const onDelete = async (postId?: number) => {
     if (!auth || !postId) return;
+
     try {
-      const response = await deleteBlog(postId);
+      await deleteBlog(postId);
+      refresh();
     } catch (e) {
       alert(e);
     }

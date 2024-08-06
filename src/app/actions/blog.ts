@@ -1,12 +1,15 @@
+"use server";
+
 import { PostResponse, Post, ServerResponse } from "@/shared/models";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { del, get, post } from "./actions";
 import { Mail } from "@/shared/models/Post";
 import { cache } from "react";
 import { CategoryResponse } from "@/shared/models/Response";
 import { showError } from "@/shared/utils/common";
+import { redirect } from "next/navigation";
 
-export const getAllCategories = cache(async () => {
+export const getAllCategories = async () => {
   try {
     const response = await get<CategoryResponse>("post/categories", {
       next: { revalidate: 3600 * 24 },
@@ -15,13 +18,12 @@ export const getAllCategories = cache(async () => {
   } catch (e) {
     showError(e);
   }
-});
+};
 
 export const getAllPosts = async () => {
   try {
     const response = await get<PostResponse>("post", {
-      cache: "no-cache",
-      // next: { revalidate: 1200 },
+      next: { revalidate: 1200, tags: ["post"] },
     });
     return response.result;
   } catch (e) {}
@@ -37,8 +39,7 @@ export const getProjects = async (offset: number = 0, limit: number = 0) => {
       { offset, limit },
 
       {
-        cache: "no-cache",
-        // next: { revalidate: 1200 },
+        next: { revalidate: 1200, tags: ["post"] },
       }
     );
     return response.result;
@@ -48,22 +49,31 @@ export const getProjects = async (offset: number = 0, limit: number = 0) => {
 };
 
 export const postBlog = async (params: Post) => {
+  let result = false;
+
   try {
     const response = await post<PostResponse, Post>("post", params);
-    return response;
+    if (response.success) result = true;
   } catch (e) {
     showError(e);
+  }
+
+  if (result) {
+    revalidateTag("post");
+    redirect("/blog");
   }
 };
 
 export const deleteBlog = async (postID: number) => {
+  let result = false;
   try {
     const response = await del<PostResponse>(`post/${postID}`);
-    console.log("RESPONSE", response);
-    if (response.success) revalidatePath("/[slug]", "page");
-    return response;
+    if (response.success) result = true;
   } catch (e) {
     showError(e);
+  }
+  if (result) {
+    if (result) revalidateTag("post");
   }
 };
 

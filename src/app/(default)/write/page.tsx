@@ -25,53 +25,49 @@ export default function Write() {
   const router = useRouter();
 
   const onSave = async (content?: string) => {
-    try {
-      if (!content || !title) return;
+    if (!content || !title) return;
 
-      let doc = new DOMParser().parseFromString(content, "text/html");
-      const images = doc.querySelectorAll("img");
-      const base64Images: { index: number; src: string }[] = [];
+    let doc = new DOMParser().parseFromString(content, "text/html");
+    const images = doc.querySelectorAll("img");
+    const base64Images: { index: number; src: string }[] = [];
 
-      images.forEach((img, index) => {
-        const src = img.src;
-        if (src.startsWith("data:image")) {
-          base64Images.push({ index, src });
-        }
-      });
-
-      await Promise.all(
-        base64Images.map(async ({ index, src }) => {
-          const arrayBuffer = base64ToArrayBuffer(src);
-          const id = await postFile(arrayBuffer);
-
-          images[index].src = id ? `/api/file?id=${id}` : "";
-          if (!id) throw new Error("Failed to save Image");
-        })
-      );
-
-      const body = doc.getElementsByTagName("body");
-      const Content = Array.from(body)[0].outerHTML;
-
-      const post: Post = {
-        UserID: 1,
-        PostType: postType ? 1 : 0,
-        Title: title,
-        Content,
-        CategoryID: category,
-        Published: published,
-        PostTime: date && fromZonedTime(date, "Asia/Seoul").toISOString(),
-      };
-
-      const response = await postBlog(post);
-
-      if (response?.success) {
-        postType ? router.push("/blog") : router.push("/projects");
-      } else {
-        alert(response?.error);
+    images.forEach((img, index) => {
+      const src = img.src;
+      if (src.startsWith("data:image")) {
+        base64Images.push({ index, src });
       }
-    } catch (e) {
-      console.log(e);
-    }
+    });
+
+    await Promise.all(
+      base64Images.map(async ({ index, src }) => {
+        const arrayBuffer = base64ToArrayBuffer(src);
+        const id = await postFile(arrayBuffer);
+
+        images[index].src = id ? `/api/file?id=${id}` : "";
+        if (!id) throw new Error("Failed to save Image");
+      })
+    );
+
+    const body = doc.getElementsByTagName("body");
+    const Content = Array.from(body)[0].outerHTML;
+
+    const post: Post = {
+      UserID: 1,
+      PostType: postType ? 1 : 0,
+      Title: title,
+      Content,
+      CategoryID: category,
+      Published: published,
+      PostTime: date && fromZonedTime(date, "Asia/Seoul").toISOString(),
+    };
+
+    await postBlog(post);
+
+    // if (response?.success) {
+    //   postType ? router.push("/blog") : router.push("/projects");
+    // } else {
+    //   alert(response?.error);
+    // }
   };
 
   return (
