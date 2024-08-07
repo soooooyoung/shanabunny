@@ -5,14 +5,10 @@ This is a Portfolio Website created with Next.js bootsrapped with CRA.
 
 Here are some of the website features
 
-- Send Message to Shana
-  Message feature to contact Shana
-- Write Post
-  [Lexical Editor](https://lexical.dev/) implemented to write posts.
-- MySQL API Integration
-  MySQL Database API requests to webserver for CRUD users, posts, and mail.
-- Music Player
-  Music player integration with music loaded from webserver
+- Message feature to contact Shana
+- Write Post with [Lexical Editor](https://lexical.dev/) implementation.
+- MySQL API Integration to webserver for CRUD users, posts, and mail.
+- Music Player integration with music loaded from webserver
 
 ## TODO
 
