@@ -28,7 +28,6 @@ export default function ContactForm({ onClose, onSuccess }: Props) {
         onClose();
         if (onSuccess) onSuccess();
       } else {
-        alert(response?.error);
       }
     } catch (e) {
       console.log(e);

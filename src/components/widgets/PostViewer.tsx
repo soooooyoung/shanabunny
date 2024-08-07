@@ -28,17 +28,13 @@ export default function PostViewer({ postList, auth }: Props) {
     try {
       await deleteBlog(postId);
       refresh();
-    } catch (e) {
-      alert(e);
-    }
+    } catch (e) {}
   };
 
   const onEdit = (postId?: number) => {
     if (!auth || !postId) return;
     try {
-    } catch (e) {
-      alert(e);
-    }
+    } catch (e) {}
   };
 
   useEffect(() => {

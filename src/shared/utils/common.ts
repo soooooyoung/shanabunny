@@ -15,6 +15,4 @@ export const base64ToArrayBuffer = (base64: string): ArrayBuffer => {
   return bytes.buffer;
 };
 
-export const showError = (message?: unknown) => {
-  alert(message);
-};
+export const showError = (message?: unknown) => {};

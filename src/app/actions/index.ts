@@ -1,6 +1,5 @@
 export { postFile } from "./file";
 export {
-  preload,
   postBlog,
   getAllPosts,
   getProjects,

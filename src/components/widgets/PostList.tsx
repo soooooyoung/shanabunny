@@ -33,9 +33,7 @@ export default function PostList({ auth, postList, categories }: Props) {
 
         if (response.length == LIMIT) setPostEnd(true);
       }
-    } catch (e) {
-      alert(e);
-    }
+    } catch (e) {}
   };
 
   useEffect(() => {

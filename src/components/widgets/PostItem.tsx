@@ -29,9 +29,7 @@ export default function PostItem({ post, auth, folded }: Props) {
     if (!auth) return;
     try {
       await deleteBlog(postId);
-    } catch (e) {
-      alert(e);
-    }
+    } catch (e) {}
   };
 
   return (
