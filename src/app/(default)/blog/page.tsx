@@ -24,6 +24,10 @@ const DynamicPostViewer = dynamic(
   }
 );
 
+const DynamicPostList = dynamic(() => import("@/components/widgets/PostPage"), {
+  ssr: false,
+});
+
 export default async function Blog() {
   const cookieStore = cookies();
   const auth = !!cookieStore.get("token");
@@ -44,10 +48,11 @@ export default async function Blog() {
           <div className="pt-32 pb-12 md:pt-40 md:pb-20">
             {/* Page header */}
             <PageTitle title="BLOG POSTS" />
+            <DynamicPostList postList={data} />
+            <DynamicPostViewer postList={data} auth={auth} />{" "}
             <div className="pb-6 md:pb-12">
               <DynamicPostCarousel postList={data} />
             </div>
-            <DynamicPostViewer postList={data} auth={auth} />
           </div>
         </div>
       </section>

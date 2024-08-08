@@ -1,10 +1,9 @@
 "use server";
 
 import { PostResponse, Post, ServerResponse } from "@/shared/models";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { del, get, post } from "./actions";
 import { Mail } from "@/shared/models/Post";
-import { cache } from "react";
 import { CategoryResponse } from "@/shared/models/Response";
 import { showError } from "@/shared/utils/common";
 import { redirect } from "next/navigation";

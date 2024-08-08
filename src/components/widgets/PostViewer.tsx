@@ -50,7 +50,7 @@ export default function PostViewer({ postList, auth }: Props) {
     : postList[0];
 
   return (
-    <>
+    <div className="mt-20">
       {auth && post && (
         <div>
           <button
@@ -87,6 +87,6 @@ export default function PostViewer({ postList, auth }: Props) {
           <ContentReader className="text-slate-700" content={post.Content} />
         </div>
       )}
-    </>
+    </div>
   );
 }
