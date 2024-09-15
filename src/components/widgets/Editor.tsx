@@ -1,14 +1,7 @@
 "use client";
-import dynamic from "next/dynamic";
+
 import { useEffect, useRef, useState } from "react";
-import {
-  $createNodeSelection,
-  $getNodeByKey,
-  EditorState,
-  LexicalEditor,
-  SerializedEditorState,
-  SerializedLexicalNode,
-} from "lexical";
+import { EditorState } from "lexical";
 import {
   InitialConfigType,
   LexicalComposer,
@@ -26,7 +19,6 @@ import InlineImagePlugin from "@/components/plugins/InlineImagePlugin";
 import { theme } from "@/shared/data/editor.data";
 import Nodes from "../nodes";
 import { $generateHtmlFromNodes } from "@lexical/html";
-import { $getNodeFromDOM } from "lexical/LexicalUtils";
 
 function Placeholder() {
   return <div className="editor-placeholder">this is placeholder...</div>;
@@ -43,12 +35,11 @@ export default function Editor({ onSave }: Props) {
   const editorConfig: InitialConfigType = {
     namespace: "React.js Demo",
     nodes: [...Nodes],
-    // Handling of errors during update
     onError(error: Error) {
       throw error;
     },
-
-    // The editor theme
+    editorState:
+      '{"root":{"children":[{"children":[],"direction":null,"format":"left","indent":0,"type":"paragraph","version":1,"textFormat":0}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
     theme,
   };
 
@@ -75,8 +66,16 @@ export default function Editor({ onSave }: Props) {
               editorStateRef.current = state;
               state.read(() => {
                 const htmlString = $generateHtmlFromNodes(editor, null);
-
                 setContent(htmlString);
+
+                const json = state.toJSON();
+                console.log(JSON.stringify(json));
+
+                console.log(htmlString);
+                let doc = new DOMParser().parseFromString(content, "text/html");
+                const body = doc.getElementsByTagName("body");
+                const newsave = Array.from(body)[0].outerHTML;
+                console.log(newsave);
               });
             }}
           />
@@ -89,6 +88,11 @@ export default function Editor({ onSave }: Props) {
       </div>
       <button
         className="btn text-sm text-white bg-pink-200 hover:bg-purple-200 w-full shadow-sm group"
+        onChange={() => {
+          if (content) {
+            console.log(content);
+          }
+        }}
         onClick={() => {
           if (content) {
             onSave(content);
