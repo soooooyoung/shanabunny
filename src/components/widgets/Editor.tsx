@@ -71,21 +71,6 @@ export default function Editor({ onSave, editContent }: Props) {
               state.read(() => {
                 const htmlString = $generateHtmlFromNodes(editor, null);
                 setContent(htmlString);
-
-                // var doc = new DOMParser().parseFromString(
-                //   htmlString,
-                //   "text/html"
-                // );
-                // const rollback = $generateNodesFromDOM(editor, doc);
-
-                // console.log(htmlString);
-                // const json = state.toJSON();
-                // console.log(JSON.stringify(json));
-
-                // let doc = new DOMParser().parseFromString(content, "text/html");
-                // const body = doc.getElementsByTagName("body");
-                // const newsave = Array.from(body)[0].outerHTML;
-                // console.log(newsave);
               });
             }}
           />

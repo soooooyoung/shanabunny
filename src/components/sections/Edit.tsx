@@ -95,12 +95,6 @@ export default function Edit({ postList }: Props) {
     };
 
     await postBlog(post);
-
-    // if (response?.success) {
-    //   postType ? router.push("/blog") : router.push("/projects");
-    // } else {
-    //   alert(response?.error);
-    // }
   };
 
   return (

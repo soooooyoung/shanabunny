@@ -24,17 +24,6 @@ export const getAllCategories = async () => {
   }
 };
 
-// export const getPost = async (postID: number) => {
-//   try {
-//     const response = await get<PostResponse>(`post/${postID}`, {
-//       cache: "no-cache",
-//     });
-//     return response.result;
-//   } catch (e) {
-//     showError(e);
-//   }
-// };
-
 export const getAllPosts = async () => {
   try {
     const response = await get<PostListResponse>("post", {
