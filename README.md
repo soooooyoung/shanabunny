@@ -1,5 +1,7 @@
 [shanabunny.com](https://shanabunny.com/)
-This is a Portfolio Website created with Next.js bootsrapped with CRA.
+
+This is a Portfolio Website written using Next.js bootsrapped with CRA. <br/>
+It is hosted on AWS EC2 instance along with backend [API server](https://github.com/soooooyoung/shanaapiserver).
 
 ## Features
 
