@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { EditorState } from "lexical";
+import { $getRoot, $insertNodes, EditorState } from "lexical";
 import {
   InitialConfigType,
   LexicalComposer,
@@ -18,7 +18,8 @@ import ToolbarPlugin from "@/components/plugins/ToolbarPlugin";
 import InlineImagePlugin from "@/components/plugins/InlineImagePlugin";
 import { theme } from "@/shared/data/editor.data";
 import Nodes from "../nodes";
-import { $generateHtmlFromNodes } from "@lexical/html";
+import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
+import EditHTMLPlugin from "../plugins/EditHTMLPlugin";
 
 function Placeholder() {
   return <div className="editor-placeholder">this is placeholder...</div>;
@@ -26,9 +27,10 @@ function Placeholder() {
 
 interface Props {
   onSave: (content?: string) => void;
+  editContent?: string;
 }
 
-export default function Editor({ onSave }: Props) {
+export default function Editor({ onSave, editContent }: Props) {
   const [isMounted, setIsMounted] = useState(false);
   const [content, setContent] = useState("");
   const editorStateRef = useRef<EditorState>();
@@ -43,6 +45,7 @@ export default function Editor({ onSave }: Props) {
     theme,
   };
 
+  console.log(editContent);
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -56,6 +59,7 @@ export default function Editor({ onSave }: Props) {
       <div className="editor-container w-full max-w-3xl">
         <ToolbarPlugin />
         <div className="editor-inner min-h-96">
+          <EditHTMLPlugin editContent={editContent} />
           <RichTextPlugin
             contentEditable={<ContentEditable className="editor-input" />}
             placeholder={<Placeholder />}
@@ -68,14 +72,20 @@ export default function Editor({ onSave }: Props) {
                 const htmlString = $generateHtmlFromNodes(editor, null);
                 setContent(htmlString);
 
-                const json = state.toJSON();
-                console.log(JSON.stringify(json));
+                // var doc = new DOMParser().parseFromString(
+                //   htmlString,
+                //   "text/html"
+                // );
+                // const rollback = $generateNodesFromDOM(editor, doc);
 
-                console.log(htmlString);
-                let doc = new DOMParser().parseFromString(content, "text/html");
-                const body = doc.getElementsByTagName("body");
-                const newsave = Array.from(body)[0].outerHTML;
-                console.log(newsave);
+                // console.log(htmlString);
+                // const json = state.toJSON();
+                // console.log(JSON.stringify(json));
+
+                // let doc = new DOMParser().parseFromString(content, "text/html");
+                // const body = doc.getElementsByTagName("body");
+                // const newsave = Array.from(body)[0].outerHTML;
+                // console.log(newsave);
               });
             }}
           />
@@ -83,6 +93,7 @@ export default function Editor({ onSave }: Props) {
           <AutoFocusPlugin />
           <InlineImagePlugin />
           <ListPlugin />
+
           {/* <TreeViewPlugin /> */}
         </div>
       </div>

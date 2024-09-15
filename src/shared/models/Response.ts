@@ -7,9 +7,12 @@ export interface ServerResponse extends Response {
 }
 
 export interface PostResponse extends ServerResponse {
-  result: Post[];
+  result: Post;
 }
 
+export interface PostListResponse extends ServerResponse {
+  result: Post[];
+}
 export interface CategoryResponse extends ServerResponse {
   result: Category[];
 }

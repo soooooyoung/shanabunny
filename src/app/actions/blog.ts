@@ -1,6 +1,11 @@
 "use server";
 
-import { PostResponse, Post, ServerResponse } from "@/shared/models";
+import {
+  PostResponse,
+  PostListResponse,
+  Post,
+  ServerResponse,
+} from "@/shared/models";
 import { revalidateTag } from "next/cache";
 import { del, get, post } from "./actions";
 import { Mail } from "@/shared/models/Post";
@@ -19,9 +24,20 @@ export const getAllCategories = async () => {
   }
 };
 
+// export const getPost = async (postID: number) => {
+//   try {
+//     const response = await get<PostResponse>(`post/${postID}`, {
+//       cache: "no-cache",
+//     });
+//     return response.result;
+//   } catch (e) {
+//     showError(e);
+//   }
+// };
+
 export const getAllPosts = async () => {
   try {
-    const response = await get<PostResponse>("post", {
+    const response = await get<PostListResponse>("post", {
       next: { revalidate: 1200, tags: ["post"] },
     });
     return response.result;
@@ -31,7 +47,7 @@ export const getAllPosts = async () => {
 export const getProjects = async (offset: number = 0, limit: number = 0) => {
   try {
     const response = await post<
-      PostResponse,
+      PostListResponse,
       { offset?: number; limit?: number }
     >(
       "post/page",
@@ -51,7 +67,7 @@ export const postBlog = async (params: Post) => {
   let result = false;
 
   try {
-    const response = await post<PostResponse, Post>("post", params);
+    const response = await post<PostListResponse, Post>("post", params);
     if (response.success) result = true;
   } catch (e) {
     showError(e);
