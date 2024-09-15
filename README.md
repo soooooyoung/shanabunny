@@ -1,7 +1,6 @@
 [shanabunny.com](https://shanabunny.com/)
 
-This is a Portfolio Website written using Next.js bootsrapped with CRA. <br/>
-It is hosted on AWS EC2 instance along with backend [API server](https://github.com/soooooyoung/shanaapiserver).
+This portfolio website is built using Next.js, bootstrapped with Create React App (CRA), fully containerized using Docker, and hosted on an AWS EC2 instance with its [API server](https://github.com/soooooyoung/shanaapiserver) with nginx container configured as a reverse proxy with load balancing.
 
 ## Features
 
