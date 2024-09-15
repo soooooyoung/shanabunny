@@ -12,6 +12,6 @@ Here are some of the website features
 
 ## TODO
 
-🕓 Add post editing
-🕓 Add embedded html to Lexical Editor
-🕓 Update post list for improved readability
+🕓 Add post editing 
+🕓 Add embedded html to Lexical Editor 
+🕓 Add autosave for posts
